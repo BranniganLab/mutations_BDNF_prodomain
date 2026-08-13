@@ -1,0 +1,70 @@
+proc calcReeofBlobs {lMin H dictInput} {
+
+    # Calculates the average end to end distance of each blob in a protein sequence and outputs it into a file.
+    # 
+    #   Arguments:
+    #       lMin (int): Minimum length of a blob (4)
+    #       H (float): Hydropathy threshold (0.37)
+    #       dictInput (string): Hydrophobicity scale ("Kyte-Doolittle")
+    #
+    #   Returns:
+    #       None
+
+    # Blobulate protein 
+    source blobulate_all.tcl
+    blobulate_protein $lMin $H $dictInput
+
+    # Get the basename of the loaded molecule file (without path or extension)
+    set structureName [molinfo top get name]
+    set baseName [file rootname [file tail $structureName]]
+    set outputFile "ree_per_blob_${baseName}.txt"
+    set fh [open $outputFile "w"]
+
+    # Get the blobs in the sequence
+    set sel [atomselect top "protein"]
+    set user2_vals [$sel get user2]
+    set blobs [lsort -unique -real $user2_vals]
+    $sel delete
+
+    set numFrames [molinfo top get numframes]  
+
+    foreach blob $blobs {
+        set sum_dist 0
+
+        # Select each blob in the protein sequence
+        set sel [atomselect top "protein and user2 == $blob"]
+        set resids [lsort -integer [$sel get resid]]
+        $sel delete
+
+        set firstResid [lindex $resids 0]
+        set lastResid  [lindex $resids end]
+
+        for {set frame 0} {$frame < $numFrames} {incr frame} {
+
+            # Get alpha carbons of the first and last resid of the protein sequence
+    		set selN [atomselect top "resid $firstResid and name CA" frame $frame]
+    		set selC [atomselect top "resid $lastResid and name CA" frame $frame]
+
+    	    set coordN [lindex [$selN get {x y z}] 0]
+    	    set coordC [lindex [$selC get {x y z}] 0]
+    	    
+    	    $selN delete
+    	    $selC delete
+
+            # Calculate the end-to-end distance
+        	set dist [vecdist $coordN $coordC]
+
+            # Add distance to the sums (to calculate the average in the next step)
+            set sum_dist [expr {$sum_dist + $dist}]
+        }
+
+        # Average the end-to-end distance
+        set avg_ree [expr {$sum_dist / double($numFrames)}]
+        
+        puts $fh $avg_ree
+    }
+
+
+    close $fh
+
+}
