@@ -1,4 +1,4 @@
-proc calc_one_pair_blob_contact {blobIndexi blobIndexj cutoff output_dir} {
+proc calc_one_pair_blob_contact {blobIndexi blobIndexj cutoff output_dir traj_without_equilibration_base} {
 	
 	# 	Calculates the contacts between two blobs in a trajectory
     #       
@@ -12,9 +12,7 @@ proc calc_one_pair_blob_contact {blobIndexi blobIndexj cutoff output_dir} {
     
     source calc_excess_dist_of_blob_sel.tcl
 
-    set structureName [molinfo top get name]
-    set baseName [file rootname [file tail $structureName]]
-    set outfileName "${output_dir}/single_pair_blob_contact_${blobIndexi}_${blobIndexj}_${baseName}.txt"
+    set outfileName "${output_dir}/single_pair_blob_contact_${blobIndexi}_${blobIndexj}_${traj_without_equilibration_base}.txt"
     set f [open $outfileName "w"]
 
 	set nframes [molinfo top get numframes]

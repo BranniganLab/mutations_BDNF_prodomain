@@ -1,4 +1,4 @@
-proc calcReeofProtein {output_dir} {
+proc calcReeofProtein {output_dir traj_without_equilibration_base} {
 
     # Calculates the end to end distance of the entire protein sequence for each frame and outputs it into a file.
     # 
@@ -8,9 +8,6 @@ proc calcReeofProtein {output_dir} {
     #   Returns:
     #       None
     
-    # Get the basename of the loaded molecule file (without path or extension)
-    set structureName [molinfo top get name]
-    set baseName [file rootname [file tail $structureName]]
     set numFrames [molinfo top get numframes]
 
     # Set first and last resid of the protein
@@ -19,7 +16,7 @@ proc calcReeofProtein {output_dir} {
     set lastResid  [lindex [$sel get resid] end]
     $sel delete
 
-    set outfileName "${output_dir}/ree_${baseName}.txt"
+    set outfileName "${output_dir}/ree_${traj_without_equilibration_base}.txt"
     set f [open $outfileName "w"]
 
     set ree {}

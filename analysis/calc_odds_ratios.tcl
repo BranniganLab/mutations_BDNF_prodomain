@@ -1,4 +1,4 @@
-proc calc_odds_ratios {contactA_blobi contactA_blobj contactB_blobi contactB_blobj cutoff output_dir} {
+proc calc_odds_ratios {contactA_blobi contactA_blobj contactB_blobi contactB_blobj cutoff output_dir traj_without_equilibration_base} {
 
     #   Writes the number of frames that display contact-states and calculates the odds ratio (OR)
     #   with these values for all blob pairs involving the Variant (V) and a termini blob to a file.
@@ -20,9 +20,7 @@ proc calc_odds_ratios {contactA_blobi contactA_blobj contactB_blobi contactB_blo
     # Calculate excess distance between midpoints of blobs
     source calc_excess_dist_of_blob_sel.tcl
 
-    set structureName [molinfo top get name]
-    set baseName [file rootname [file tail $structureName]]
-	set filename "${output_dir}/${baseName}_odds_ratios_${contactA_blobi}_${contactA_blobj}_to_${contactB_blobi}_${contactB_blobj}.txt"
+	set filename "${output_dir}/${traj_without_equilibration_base}_odds_ratios_${contactA_blobi}_${contactA_blobj}_to_${contactB_blobi}_${contactB_blobj}.txt"
     set fp [open $filename "w"]
 
 	set Aij_Bij_states   [get_Aij_Bij_state   $contactA_blobi $contactA_blobj $contactB_blobi $contactB_blobj $cutoff]

@@ -19,6 +19,9 @@ set full_traj [lindex $argv 1]
 set traj_without_equilibration [lindex $argv 2]
 set output_dir [lindex $argv 3]
 
+set full_traj_base [file rootname [file tail $full_traj]]
+set traj_without_equilibration_base [file rootname [file tail $traj_without_equilibration]]
+
 # Load sequence into VMD and remove the first frame since it is the gro structure
 mol new $structure type gro waitfor all
 mol addfile $full_traj type xtc waitfor all
@@ -26,11 +29,16 @@ animate delete beg 0 end 0
 
 # Measures the radius of gyration over time of the protein that includes equilibration time
 source calc_rg_of_protein.tcl
-calcRgofProtein	$output_dir
+calcRgofProtein	$output_dir $full_traj_base
 
 # Load sequence into VMD
 mol new $structure type gro waitfor all
 mol addfile $traj_without_equilibration type xtc waitfor all
+animate delete beg 0 end 0
+
+# Measures the radius of gyration over time of the protein that does not include equilibration time
+source calc_rg_of_protein.tcl
+calcRgofProtein	$output_dir $traj_without_equilibration_base
 
 # Blobulate protein  
 source blobulate_protein.tcl
@@ -42,38 +50,54 @@ reassign_resid $resid_to_reassign $resid_new_user1 $resid_new_user2
 
 # Scripts for SAHP parametrization  
 source calc_avg_rg_of_blobs.tcl
-calcRgofBlobs $output_dir
+calcRgofBlobs $output_dir $traj_without_equilibration_base
 source calc_avg_ree_of_blobs.tcl
-calcReeofBlobs $output_dir		 		
+calcReeofBlobs $output_dir $traj_without_equilibration_base		 		
 
 # Scripts for blob-blob contacts  
 source calc_rg_of_all_blobs.tcl
-calcAllBlobRg $output_dir
+calcAllBlobRg $output_dir $traj_without_equilibration_base
 source calc_midpoints_of_all_blobs.tcl
-calcAllBlobMidpoints $output_dir								
+calcAllBlobMidpoints $output_dir $traj_without_equilibration_base								
 
 # Measures the end-to-end distance of a protein over time  
 source calc_ree_of_protein.tcl
-calcReeofProtein $output_dir	
+calcReeofProtein $output_dir $traj_without_equilibration_base	
 
 # Measures contacts for one blob pair  
 source calc_one_pair_blob_contact.tcl
-calc_one_pair_blob_contact $N_terminal_index $C_terminal_index $blob_distance_cutoff $output_dir
+calc_one_pair_blob_contact $N_terminal_index $C_terminal_index $blob_distance_cutoff $output_dir $traj_without_equilibration_base
 
 # Measures odds ratios  
 source calc_odds_ratios.tcl 
-calc_odds_ratios $variant_index $N_terminal_index $N_terminal_index $C_terminal_index $blob_distance_cutoff $output_dir
-calc_odds_ratios $variant_index $C_terminal_index $N_terminal_index $C_terminal_index $blob_distance_cutoff $output_dir
-calc_odds_ratios $variant_index $mediator_index $mediator_index $N_terminal_index $blob_distance_cutoff $output_dir
-calc_odds_ratios $mediator_index $N_terminal_index $N_terminal_index $C_terminal_index $blob_distance_cutoff $output_dir
-calc_odds_ratios $variant_index $mediator_index $mediator_index $C_terminal_index $blob_distance_cutoff $output_dir
+calc_odds_ratios $variant_index $N_terminal_index $N_terminal_index $C_terminal_index $blob_distance_cutoff $output_dir $traj_without_equilibration_base
+calc_odds_ratios $variant_index $C_terminal_index $N_terminal_index $C_terminal_index $blob_distance_cutoff $output_dir $traj_without_equilibration_base
+calc_odds_ratios $variant_index $mediator_index $mediator_index $N_terminal_index $blob_distance_cutoff $output_dir $traj_without_equilibration_base
+calc_odds_ratios $mediator_index $N_terminal_index $N_terminal_index $C_terminal_index $blob_distance_cutoff $output_dir $traj_without_equilibration_base
+calc_odds_ratios $variant_index $mediator_index $mediator_index $C_terminal_index $blob_distance_cutoff $output_dir $traj_without_equilibration_base
 
 # Classfies conformational ensemble into contact states and measures side-chain contacts
 source classify_contact_state.tcl
 classify_contact_state $variant_index $mediator_index $N_terminal_index $C_terminal_index $blob_distance_cutoff $state1 $output_dir
 source calc_sidechain_contacts.tcl
-measureContactsSC $residue_contact_distance_cutoff $output_dir
+measureContactsSC $residue_contact_distance_cutoff $output_dir $state1
+mol delete top
+
+# Load sequence into VMD
+mol new $structure type gro waitfor all
+mol addfile $traj_without_equilibration type xtc waitfor all
+animate delete beg 0 end 0
+
+# Blobulate protein  
+source blobulate_protein.tcl
+blobulate_protein $Lmin $H_star $hydrophobicity_scale
+
+# Reassign resid H65 to the h2b blob to keep comparison across sequences consistent  
+source reassign_resid.tcl
+reassign_resid $resid_to_reassign $resid_new_user1 $resid_new_user2
+
+# Classfies conformational ensemble into contact states and measures side-chain contacts
 classify_contact_state $variant_index $mediator_index $N_terminal_index $C_terminal_index $blob_distance_cutoff $state2 $output_dir
-measureContactsSC $residue_contact_distance_cutoff $output_dir
+measureContactsSC $residue_contact_distance_cutoff $output_dir $state2
 			
 quit

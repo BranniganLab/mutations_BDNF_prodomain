@@ -1,4 +1,4 @@
-proc calcReeofBlobs {output_dir} {
+proc calcReeofBlobs {output_dir traj_without_equilibration_base} {
 
     # Calculates the average end to end distance of each blob in a protein sequence and outputs it into a file.
     # 
@@ -10,10 +10,7 @@ proc calcReeofBlobs {output_dir} {
     #   Returns:
     #       None
 
-    # Get the basename of the loaded molecule file (without path or extension)
-    set structureName [molinfo top get name]
-    set baseName [file rootname [file tail $structureName]]
-    set outputFile "${output_dir}/ree_per_blob_${baseName}.txt"
+    set outputFile "${output_dir}/ree_per_blob_${traj_without_equilibration_base}.txt"
     set fh [open $outputFile "w"]
 
     # Get the blobs in the sequence

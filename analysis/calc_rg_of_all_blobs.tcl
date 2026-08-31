@@ -1,4 +1,4 @@
-proc calcAllBlobRg {output_dir} {
+proc calcAllBlobRg {output_dir traj_without_equilibration_base} {
 
     #   This script outputs one file that contains Rg values of each frame for each blob. 
     #   The number of blobs corresponds to the number of rows in the file. 
@@ -33,9 +33,7 @@ proc calcAllBlobRg {output_dir} {
     set num_of_blobs [llength $list_of_blob_resid_ranges]
 
     # Open file for writing blob data
-    set structureFullName [molinfo top get name]
-    set structureBaseName [file rootname [file tail $structureFullName]]
-    set fp [open "${output_dir}/blob_Rg_${structureBaseName}.txt" w]
+    set fp [open "${output_dir}/blob_Rg_${traj_without_equilibration_base}.txt" w]
 
     # Iterate over each blob residue range and calculate radius of gyration
     set count 1

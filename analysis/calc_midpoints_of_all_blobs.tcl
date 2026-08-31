@@ -1,4 +1,4 @@
-proc calcAllBlobMidpoints {output_dir} {
+proc calcAllBlobMidpoints {output_dir traj_without_equilibration_base} {
 
     #   This script outputs one file that contains xyz coordinates of the midpoint for each blob
     #   Each row corresponds to a frame. The first 3 values are xyz coordinates of the first blob 
@@ -34,9 +34,7 @@ proc calcAllBlobMidpoints {output_dir} {
     set num_of_blobs [llength $list_of_blob_resid_ranges]
 
     # Open file to store midpoints
-    set structureFullName [molinfo top get name]
-    set structureBaseName [file rootname [file tail $structureFullName]]
-    set fp [open "${output_dir}/midpoint_${structureBaseName}.txt" w]
+    set fp [open "${output_dir}/midpoint_${traj_without_equilibration_base}.txt" w]
 
     # Loop over each frame
     for {set i 0} {$i < $numOfFrames} {incr i} {

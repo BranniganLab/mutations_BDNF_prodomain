@@ -1,4 +1,4 @@
-proc calcRgofProtein {output_dir} {
+proc calcRgofProtein {output_dir traj_name} {
 
     #   Calculates the radius of gyration (Rg) of a protein sequence in each frame and outputs it into a file.
     # 
@@ -10,12 +10,8 @@ proc calcRgofProtein {output_dir} {
 
     set numFrames [molinfo top get numframes]
 
-    # Get the basename of the loaded molecule file (without path or extension)
-    set structureName [molinfo top get name]
-    set baseName [file rootname [file tail $structureName]]
-
     # Output file named based on basename
-    set outputFile "${output_dir}/rg_${baseName}.txt"
+    set outputFile "${output_dir}/rg_${traj_name}.txt"
     set f [open $outputFile "w"]
 
     for {set i 0} {$i < $numFrames} {incr i} {

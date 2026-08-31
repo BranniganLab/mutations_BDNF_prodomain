@@ -1,4 +1,4 @@
-proc calcRgofBlobs {output_dir} {
+proc calcRgofBlobs {output_dir traj_without_equilibration_base} {
 
     # Calculates the average radius of gyration (Rg) of each blob in a protein sequence and outputs it into a file.
     # 
@@ -11,9 +11,7 @@ proc calcRgofBlobs {output_dir} {
     #       None
     
     # Get the basename of the loaded molecule file (without path or extension)
-    set structureName [molinfo top get name]
-    set baseName [file rootname [file tail $structureName]]
-    set outputFile "${output_dir}/rg_per_blob_${baseName}.txt"
+    set outputFile "${output_dir}/rg_per_blob_${traj_without_equilibration_base}.txt"
     set fh [open $outputFile "w"]
 
     # Get the blobs in the sequence
