@@ -7,8 +7,8 @@ cd "$SCRIPT_DIR"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 TRAJ_DIR="$ROOT_DIR/trajectories"
-PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed5"
-DATA_DIR="$ROOT_DIR/data5"
+PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed6"
+DATA_DIR="$ROOT_DIR/data6"
 
 for seq in F66 M66 V66 L66 A66 Y66 I66; do
   vmd -dispdev none \

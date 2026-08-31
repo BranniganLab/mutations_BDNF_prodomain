@@ -7,13 +7,13 @@ cd "$SCRIPT_DIR"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 TRAJ_DIR="$ROOT_DIR/trajectories/raw"
-PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed5"
-DATA_DIR="$ROOT_DIR/data5"
+PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed6"
+DATA_DIR="$ROOT_DIR/data6"
 
 mkdir -p "$PROCESSED_TRAJ_DIR"
 mkdir -p "$DATA_DIR"
 
-# python3 calc_mindist.py --input_traj_path "$TRAJ_DIR" --output_data_path "$DATA_DIR"
+python3 calc_mindist.py --input_traj_path "$TRAJ_DIR" --output_data_path "$DATA_DIR"
 
 for seq in F66 M66 V66 L66 A66 Y66 I66; do
   vmd -dispdev none \

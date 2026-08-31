@@ -6,13 +6,13 @@ cd "$SCRIPT_DIR"
 
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
-INPUT_DIR="$ROOT_DIR/data5"
-FIGURE_DIR="$ROOT_DIR/figures5"
+INPUT_DIR="$ROOT_DIR/data6"
+FIGURE_DIR="$ROOT_DIR/figures6"
 
 mkdir -p "$FIGURE_DIR"
 
 # Plots the radius of gyration over time for each sequence  
-# python3 plot_rg_over_time.py --input_path "$INPUT_DIR" --output_path "$FIGURE_DIR" 					
+python3 plot_rg_over_time.py --input_path "$INPUT_DIR" --output_path "$FIGURE_DIR" 					
 
 # Plots the cumulatiave average of Variant-Mediator contacts for the M66 sequence  
 python3 plot_cumulative_average_blob_contact.py --input_path "$INPUT_DIR" --output_path "$FIGURE_DIR" 
