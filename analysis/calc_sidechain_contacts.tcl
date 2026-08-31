@@ -1,4 +1,4 @@
-proc measureContactsSC {cutoff} {
+proc measureContactsSC {cutoff output_dir} {
 
     #   Calculates the contact frequencies between sidechains (excluding GLY) of residues.
     #
@@ -10,7 +10,7 @@ proc measureContactsSC {cutoff} {
 
     set structureName [molinfo top get name]
     set baseName [file rootname [file tail $structureName]]
-    set outfileName "sc_contactfreqs_${cutoff}A_${baseName}"
+    set outfileName "${output_dir}/sc_contactfreqs_${cutoff}A_${baseName}.txt"
     set f [open $outfileName "w"]
 
     # Get list of residue IDs via CA atoms

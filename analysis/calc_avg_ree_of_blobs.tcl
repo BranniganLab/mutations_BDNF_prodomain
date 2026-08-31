@@ -1,4 +1,4 @@
-proc calcReeofBlobs {lMin H dictInput} {
+proc calcReeofBlobs {output_dir} {
 
     # Calculates the average end to end distance of each blob in a protein sequence and outputs it into a file.
     # 
@@ -10,14 +10,10 @@ proc calcReeofBlobs {lMin H dictInput} {
     #   Returns:
     #       None
 
-    # Blobulate protein 
-    source blobulate_all.tcl
-    blobulate_protein $lMin $H $dictInput
-
     # Get the basename of the loaded molecule file (without path or extension)
     set structureName [molinfo top get name]
     set baseName [file rootname [file tail $structureName]]
-    set outputFile "ree_per_blob_${baseName}.txt"
+    set outputFile "${output_dir}/ree_per_blob_${baseName}.txt"
     set fh [open $outputFile "w"]
 
     # Get the blobs in the sequence
@@ -41,9 +37,9 @@ proc calcReeofBlobs {lMin H dictInput} {
 
         for {set frame 0} {$frame < $numFrames} {incr frame} {
 
-            # Get alpha carbons of the first and last resid of the protein sequence
-    		set selN [atomselect top "resid $firstResid and name CA" frame $frame]
-    		set selC [atomselect top "resid $lastResid and name CA" frame $frame]
+            # Get N and O atoms of the first and last resid of the protein sequence respectively
+    		set selN [atomselect top "resid $firstResid and name N" frame $frame]
+    		set selC [atomselect top "resid $lastResid and name O" frame $frame]
 
     	    set coordN [lindex [$selN get {x y z}] 0]
     	    set coordC [lindex [$selC get {x y z}] 0]
@@ -63,8 +59,6 @@ proc calcReeofBlobs {lMin H dictInput} {
         
         puts $fh $avg_ree
     }
-
-
+    
     close $fh
-
 }

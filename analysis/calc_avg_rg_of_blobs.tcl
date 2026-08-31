@@ -1,4 +1,4 @@
-proc calcRgofBlobs {lMin H dictInput} {
+proc calcRgofBlobs {output_dir} {
 
     # Calculates the average radius of gyration (Rg) of each blob in a protein sequence and outputs it into a file.
     # 
@@ -10,14 +10,10 @@ proc calcRgofBlobs {lMin H dictInput} {
     #   Returns:
     #       None
     
-    # Blobulate protein 
-    source blobulate_all.tcl
-    blobulate_protein $lMin $H $dictInput
-
     # Get the basename of the loaded molecule file (without path or extension)
     set structureName [molinfo top get name]
     set baseName [file rootname [file tail $structureName]]
-    set outputFile "rg_per_blob_${baseName}.txt"
+    set outputFile "${output_dir}/rg_per_blob_${baseName}.txt"
     set fh [open $outputFile "w"]
 
     # Get the blobs in the sequence
@@ -46,5 +42,4 @@ proc calcRgofBlobs {lMin H dictInput} {
     }
 
     close $fh
-    puts "Avg Rg written to $outputFile"
 }

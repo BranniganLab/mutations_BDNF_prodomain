@@ -10,8 +10,8 @@ proc calcExcessDistMid {blobIndexi blobIndexj frame} {
     #   Returns:
     #       excess (float): Excess distance between two blobs i and j
     
-    source calcMid.tcl
-    source calcRg.tcl
+    source calc_midpoint_of_blob_sel.tcl
+    source calc_rg_of_blob_sel.tcl
 
     # Blob i
     set blobSel [atomselect top "protein and user2 $blobIndexi"]
