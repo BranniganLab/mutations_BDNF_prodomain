@@ -24,7 +24,7 @@ def read_reference_file():
         blob_center_coords : numpy.ndarray
             Array of blob center coordinates.
     """
-    center_coords_filename = f"midpoint_{ref_seq}_resid_23-113-capped.txt" 
+    center_coords_filename = f"midpoint_{ref_seq}_wrapped_PIF_equil_del.txt" 
     blob_center_coords = np.loadtxt(f'{input_path}/{center_coords_filename}')
 
     return blob_center_coords
@@ -43,7 +43,7 @@ def get_num_of_blobs():
         rgyr_filename : str
             The filename of the Rg file.
     """
-    rgyr_filename = f"blob_Rg_{ref_seq}_resid_23-113-capped.txt"
+    rgyr_filename = f"blob_Rg_{ref_seq}_wrapped_PIF_equil_del.txt"
     
     with open(f"{input_path}/{rgyr_filename}", 'r') as fp:
         num_of_blobs = len(fp.readlines()) # The number of blobs is equal to the number of lines in the rgyr file

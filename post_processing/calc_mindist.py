@@ -35,8 +35,8 @@ def write_periodic_image_frames_to_list():
     for mindist_value, time_frame in zip(mindist_file['mindist'], mindist_file['time_frame']):
         if mindist_value < max_value:
             frame_scaled = time_frame
-            frame = frame_scaled / 100 # Convert the frame to time 
-            if frame > 8000:
+            frame = int(frame_scaled / 100) # Convert the frame to time 
+            if frame > 800:
                 list_of_time_frames_to_delete.append(frame)
 
     return list_of_time_frames_to_delete

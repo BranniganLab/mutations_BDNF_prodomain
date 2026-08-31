@@ -22,7 +22,7 @@ def read_data(sequence):
             A DataFrame containing the data.
     """
 
-    data = pd.read_csv(f'{input_path}/rg_{sequence}_resid_23-113-capped.txt', sep=r'\s', header=None, names=['data'], engine='python')
+    data = pd.read_csv(f'{input_path}/rg_{sequence}_PIF_del_full_traj_wrapped_centered.txt', sep=r'\s', header=None, names=['data'], engine='python')
 
     return data
 

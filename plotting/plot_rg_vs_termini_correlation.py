@@ -27,7 +27,7 @@ def read_data(sequence, data_type):
             A DataFrame containing the data.
     """
 
-    data = pd.read_csv(f'{input_path}/{data_type}_{sequence}_resid_23-113-capped.txt', sep=r'\s', header=None, names=['data'], engine='python')
+    data = pd.read_csv(f'{input_path}/{data_type}_{sequence}_wrapped_PIF_equil_del.txt', sep=r'\s', header=None, names=['data'], engine='python')
 
     return data
 

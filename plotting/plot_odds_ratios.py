@@ -24,7 +24,7 @@ def read_OR_file(sequence):
             A DataFrame containing the odds ratios for the given sequence
     """
 
-    OR_data = pd.read_csv(f"{input_path}/{sequence}66_resid_23-113-capped_odds_ratios_{association}.txt", sep=r'\s+', header=None)
+    OR_data = pd.read_csv(f"{input_path}/{sequence}_wrapped_PIF_equil_del_odds_ratios_{association}.txt", sep=r'\s+', header=None)
     
     return OR_data
 
@@ -154,7 +154,7 @@ def plot_OR():
     p_values = []
 
     for sequence in sequences:
-        data_df = read_OR_file(sequence[0])
+        data_df = read_OR_file(sequence)
         state_a = data_df.iloc[0, 1]
         state_b = data_df.iloc[0, 2]
         state_c = data_df.iloc[0, 3]

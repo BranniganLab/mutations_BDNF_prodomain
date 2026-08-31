@@ -20,7 +20,7 @@ def read_center_file():
             Array of blob center coordinates.
     """
 
-    center_coords_filename = f"midpoint_{variant}_resid_23-113-capped.txt"
+    center_coords_filename = f"midpoint_{sequence}_wrapped_PIF_equil_del.txt"
     blob_center_coords = np.loadtxt(f"{input_path}/{center_coords_filename}")
 
     return blob_center_coords
@@ -48,7 +48,7 @@ def calc_contacts():
     coords_j = blob_center_coords[:, j_cols]
 
     # Read Rg
-    rgyr_filename = f"blob_Rg_{variant}_resid_23-113-capped.txt"
+    rgyr_filename = f"blob_Rg_{sequence}_wrapped_PIF_equil_del.txt"
     rgyr_values_blob_i = linecache.getline(f"{input_path}/{rgyr_filename}",blob_i + 1).strip()
     rgyr_values_blob_j = linecache.getline(f"{input_path}/{rgyr_filename}",blob_j + 1).strip()
 
@@ -111,7 +111,7 @@ def fig_gen():
 
     blob_name_i = id_to_name[blob_i]
     blob_name_j = id_to_name[blob_j]
-    output_filename = (f"cumulative_avg_{blob_name_i}_{blob_name_j}_seq_{variant}_H65.pdf")
+    output_filename = (f"cumulative_avg_{blob_name_i}_{blob_name_j}_seq_{sequence}_H65.pdf")
 
     plt.savefig(f"{output_path}/{output_filename}",bbox_inches="tight")
     plt.close()
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
     parser.add_argument("--blob_i", required=False, default=5, help="Index of the first blob.")
     parser.add_argument("--blob_j", required=False, default=8, help="Index of the second blob.")
-    parser.add_argument("--variant", required=False, default="M66", help="Sequence name.")
+    parser.add_argument("--sequence", required=False, default="M66", help="Sequence name.")
     parser.add_argument("--cutoff_distance", required=False, default=0.55, help="Cutoff distance.")
     parser.add_argument("--ps_per_frame", required=False, default=100, help="Time step in picoseconds.")
     
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     output_path = args.output_path
     blob_i = int(args.blob_i)
     blob_j = int(args.blob_j)
-    variant = args.variant
+    sequence = args.sequence
     cutoff_distance = float(args.cutoff_distance)
     ps_per_frame = float(args.ps_per_frame)
 

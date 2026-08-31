@@ -24,7 +24,7 @@ def read_center_file(sequence):
         blob_center_coords : numpy.ndarray
             Array of blob center coordinates.
     """
-    center_coords_filename = f"midpoint_{sequence}66_resid_23-113-capped.txt" 
+    center_coords_filename = f"midpoint_{sequence}_wrapped_PIF_equil_del.txt" 
     blob_center_coords = np.loadtxt(f'{input_path}/{center_coords_filename}')
 
     return blob_center_coords
@@ -41,7 +41,7 @@ def calc_excess_distance_and_contacts_for_specific_blob_groups(sequence):
         contact_probability : numpy.ndarray
             Array of contact probabilities.
     """      
-    rgyr_filename = f"{input_path}/blob_Rg_{sequence}66_resid_23-113-capped.txt"
+    rgyr_filename = f"{input_path}/blob_Rg_{sequence}_wrapped_PIF_equil_del.txt"
     blob_center_coords = read_center_file(sequence)
     
     number_of_frames = blob_center_coords.shape[0]
@@ -126,7 +126,7 @@ def fig_gen_difference_between_variants(ax, sequence1, sequence2, fig):
     """
     probability_mean = calc_contact_difference_between_variants(sequence1, sequence2)
     imgp = ax.imshow(probability_mean, origin='lower', aspect='equal', cmap='PRGn', vmin=-50, vmax=50)
-    ax.set_title(fr'{sequence1}66-A66', loc='center', fontsize='20')
+    ax.set_title(fr'{sequence1}-A66', loc='center', fontsize='20')
 
     # Draw the colorbar right next to the subplot
     if sequence1 in ["V", "I"]:
@@ -158,14 +158,14 @@ def combine_blob_contact_plots_difference():
     fig, axes = plt.subplots(2, 3, figsize=(10, 10))
 
     # TOP ROW
-    fig_gen_difference_between_variants(axes[0, 0], "F", "A", fig)
-    fig_gen_difference_between_variants(axes[0, 1], "M", "A", fig)
-    fig_gen_difference_between_variants(axes[0, 2], "V", "A", fig)
+    fig_gen_difference_between_variants(axes[0, 0], "F66", "A66", fig)
+    fig_gen_difference_between_variants(axes[0, 1], "M66", "A66", fig)
+    fig_gen_difference_between_variants(axes[0, 2], "V66", "A66", fig)
 
     # BOTTOM ROW (Beta)
-    fig_gen_difference_between_variants(axes[1, 0], "L", "A", fig)
-    fig_gen_difference_between_variants(axes[1, 1], "Y", "A", fig)
-    fig_gen_difference_between_variants(axes[1, 2], "I", "A", fig)
+    fig_gen_difference_between_variants(axes[1, 0], "L66", "A66", fig)
+    fig_gen_difference_between_variants(axes[1, 1], "Y66", "A66", fig)
+    fig_gen_difference_between_variants(axes[1, 2], "I66", "A66", fig)
 
     fig.subplots_adjust(wspace=0)
     plt.savefig(f"{output_path}/blob_contacts_A66_vs_sequences.pdf", bbox_inches='tight')
