@@ -15,8 +15,8 @@ proc measureContactsSC {cutoff output_dir state} {
     set outfileName "${output_dir}/sc_contactfreqs_${cutoff}A_${seq}_${state}.txt"
     set f [open $outfileName "w"]
 
-    # Get list of residue IDs via CA atoms
-    set resids [[atomselect top "type CA"] get resid]
+    # # Get list of residue IDs via CA atoms
+    set resids [[atomselect top "protein and name CA"] get resid]
     set numRes [llength $resids]
 
     # Number of unique residue pairs (excluding i==j, and avoiding double counting)
@@ -36,7 +36,7 @@ proc measureContactsSC {cutoff output_dir state} {
             lappend isGlycine 1
             lappend scSelectors ""
         } else {
-            set sel [atomselect top "sidechain noh and resid $resid"]
+            set sel [atomselect top "protein and resid $resid and noh and not name N CA C O"]
             lappend scSelectors $sel
             lappend isGlycine 0
         }

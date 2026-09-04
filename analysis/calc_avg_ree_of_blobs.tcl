@@ -14,7 +14,7 @@ proc calcReeofBlobs {output_dir traj_without_equilibration_base} {
     set fh [open $outputFile "w"]
 
     # Get the blobs in the sequence
-    set sel [atomselect top "protein"]
+    set sel [atomselect top "all"]
     set user2_vals [$sel get user2]
     set blobs [lsort -unique -real $user2_vals]
     $sel delete
@@ -25,7 +25,7 @@ proc calcReeofBlobs {output_dir traj_without_equilibration_base} {
         set sum_dist 0
 
         # Select each blob in the protein sequence
-        set sel [atomselect top "protein and user2 == $blob"]
+        set sel [atomselect top "user2 == $blob"]
         set resids [lsort -integer [$sel get resid]]
         $sel delete
 

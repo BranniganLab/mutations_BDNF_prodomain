@@ -15,7 +15,7 @@ proc calcRgofProtein {output_dir traj_name} {
     set f [open $outputFile "w"]
 
     for {set i 0} {$i < $numFrames} {incr i} {
-        set sel [atomselect top "protein" frame $i]
+        set sel [atomselect top "all" frame $i]
         set rg_sel [measure rgyr $sel weight mass]
         puts $f "$rg_sel"
         $sel delete

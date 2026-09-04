@@ -14,7 +14,7 @@ proc calcExcessDistMid {blobIndexi blobIndexj frame} {
     source calc_rg_of_blob_sel.tcl
 
     # Blob i
-    set blobSel [atomselect top "protein and user2 $blobIndexi"]
+    set blobSel [atomselect top "user2 $blobIndexi"]
     set residsi [$blobSel get resid]
     $blobSel delete
     set firstResidi [lindex $residsi 0]
@@ -34,7 +34,7 @@ proc calcExcessDistMid {blobIndexi blobIndexj frame} {
     $blobSel1 delete
 
     # Blob j
-    set blobSel [atomselect top "protein and user2 $blobIndexj"]
+    set blobSel [atomselect top "user2 $blobIndexj"]
     set residsj [$blobSel get resid]
     $blobSel delete
     set firstResidj [lindex $residsj 0]

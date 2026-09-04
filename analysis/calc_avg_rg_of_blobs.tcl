@@ -15,7 +15,7 @@ proc calcRgofBlobs {output_dir traj_without_equilibration_base} {
     set fh [open $outputFile "w"]
 
     # Get the blobs in the sequence
-    set sel [atomselect top "protein"]
+    set sel [atomselect top "all"]
     set user2_vals [$sel get user2]
     set blobs [lsort -unique -real $user2_vals]
     $sel delete
@@ -25,7 +25,7 @@ proc calcRgofBlobs {output_dir traj_without_equilibration_base} {
     foreach blob $blobs {
         set sum_rg 0
         for {set i 0} {$i < $numFrames} {incr i} {
-            set sel [atomselect top "protein and user2 == $blob" frame $i]
+            set sel [atomselect top "user2 == $blob" frame $i]
             set rgyrinFrame [measure rgyr $sel weight mass]
             $sel delete
 

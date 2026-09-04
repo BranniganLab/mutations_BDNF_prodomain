@@ -13,7 +13,7 @@ proc calcAllBlobRg {output_dir traj_without_equilibration_base} {
     set numOfFrames [molinfo top get numframes]
 
     # Get list of blobs
-    set sel [atomselect top "protein and alpha"]
+    set sel [atomselect top "all and alpha"]
     set list_of_blobs [lsort -unique [$sel get user2]]
     $sel delete
 
@@ -21,7 +21,7 @@ proc calcAllBlobRg {output_dir traj_without_equilibration_base} {
     set list_of_blob_resid_ranges {}
 
     foreach blob $list_of_blobs {
-        set blob_sel [atomselect top "protein and user2 $blob"]
+        set blob_sel [atomselect top "user2 $blob"]
         set resids_in_blob [$blob_sel get resid]
         $blob_sel delete
         set blobRange [list [lindex $resids_in_blob 0] [lindex $resids_in_blob end]]
