@@ -44,5 +44,5 @@ proc delete_periodic_image_frames {data_dir processed_dir} {
     # Write output
     set structureName [molinfo top get name] 
     set seq [string index $structureName 0] 
-    animate write gro "${processed_dir}/${seq}66_PIF_del_full_traj.gro" beg 0 end -1 top
+    animate write gro "${processed_dir}/${seq}66_wrapped_centered_PIF_del.gro" beg 0 end -1 top
 }

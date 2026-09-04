@@ -42,7 +42,7 @@ def wrap_and_center_protein(input_trajectory, output_trajectory, topology, group
         "-center",
     ]
 
-    # trjconv asks for:
+    # trjconv needs:
     #   1. group to center
     #   2. group to write
     selections = f"{group_number}\n{group_number}\n"
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     parser.add_argument("--processed_traj_path", required=True, help="Path to the input data.") 
     parser.add_argument("--sequences", required=False, default="F66 M66 V66 L66 A66 Y66 I66", help="Sequence names.")
 
-    # V66 M66 A66 Y66 L66 I66
+    # F66 M66 V66 L66 A66 Y66 I66
 
     args = parser.parse_args()
 
@@ -67,9 +67,9 @@ if __name__ == "__main__":
     sequences = args.sequences.split()
 
     for seq in sequences:
-        input_trajectory = (f"{processed_traj_path}/{seq}_PIF_del_full_traj.xtc")
-        output_trajectory = (f"{processed_traj_path}/{seq}_PIF_del_full_traj_wrapped_centered.xtc")
-        topology = (f"{raw_traj_path}/{seq}/{seq}_ex.tpr")
+        input_trajectory = (f"{raw_traj_path}/{seq}/{seq}_cut.xtc")
+        output_trajectory = (f"{processed_traj_path}/{seq}_wrapped_centered.xtc")
+        topology = (f"{raw_traj_path}/{seq}/{seq}.tpr")
 
         wrap_and_center_protein(input_trajectory, output_trajectory, topology)
 

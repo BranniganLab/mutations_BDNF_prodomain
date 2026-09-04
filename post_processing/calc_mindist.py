@@ -13,7 +13,7 @@ def mindist():
         None
     """
 
-    subprocess.call(f"echo 1 > pro ; gmx mindist -f {input_traj_path}/{seq}/{seq}_trajout_cut.xtc -s {input_traj_path}/{seq}/{seq}_ex.tpr -xvg none -od {seq}_mindist.xvg -pi < pro", shell=True, cwd=output_data_path)
+    subprocess.call(f"echo 1 > pro ; gmx mindist -f {input_traj_path}/{seq}_wrapped_centered.xtc -s {raw_traj_path}/{seq}/{seq}.tpr -xvg none -od {seq}_mindist.xvg -pi < pro", shell=True, cwd=output_data_path)
 
 def write_periodic_image_frames_to_list():
     """
@@ -36,7 +36,7 @@ def write_periodic_image_frames_to_list():
         if mindist_value < max_value:
             frame_scaled = time_frame
             frame = int(frame_scaled / 100) # Convert the frame to time 
-            if frame > 800:
+            if frame > 0:
                 list_of_time_frames_to_delete.append(frame)
 
     return list_of_time_frames_to_delete
@@ -54,15 +54,15 @@ if __name__=="__main__":
 
     parser = argparse.ArgumentParser(description="Calculates the minimum distance between two atoms in the trajectory and determines if the protein is interacting with itself in the periodic image by a cutoff distance.")
 
+    parser.add_argument("--raw_traj_path", required=True, help="Path to the input data.") 
     parser.add_argument("--input_traj_path", required=True, help="Path to the input data.") 
     parser.add_argument("--output_data_path", required=True, help="Path to the output data.")
     parser.add_argument("--sequences", required=False, default="F66 M66 V66 L66 A66 Y66 I66", help="Sequence names.")
     parser.add_argument("--max_distance", required=False, default=2, help="Maximum distance between two atoms in nm.")
 
-    # M66 V66 L66 A66 Y66 I66
-
     args = parser.parse_args()
 
+    raw_traj_path = args.raw_traj_path
     input_traj_path = args.input_traj_path
     output_data_path = args.output_data_path
     sequences = args.sequences.split()
