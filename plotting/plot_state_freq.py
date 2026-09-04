@@ -22,7 +22,7 @@ def read_data_file(sequence):
             A DataFrame containing the odds ratios for the given sequence
     """
 
-    OR_data = pd.read_csv(f"{input_path}/{sequence}_wrapped_PIF_equil_del_odds_ratios_{association}.txt", sep=r'\s+', header=None, names=['blob_association', 'state_a', 'state_b', 'state_c', 'state_d', 'OR'])
+    OR_data = pd.read_csv(f"{input_path}/{sequence}_wrapped_centered_PIF_equil_del_odds_ratios_{association}.txt", sep=r'\s+', header=None, names=['blob_association', 'state_a', 'state_b', 'state_c', 'state_d', 'OR'])
     
     return OR_data
 

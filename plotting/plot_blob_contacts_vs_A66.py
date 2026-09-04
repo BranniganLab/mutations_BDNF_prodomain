@@ -24,7 +24,7 @@ def read_center_file(sequence):
         blob_center_coords : numpy.ndarray
             Array of blob center coordinates.
     """
-    center_coords_filename = f"midpoint_{sequence}_wrapped_PIF_equil_del.txt" 
+    center_coords_filename = f"midpoint_{sequence}_wrapped_centered_PIF_equil_del.txt" 
     blob_center_coords = np.loadtxt(f'{input_path}/{center_coords_filename}')
 
     return blob_center_coords
@@ -41,7 +41,7 @@ def calc_excess_distance_and_contacts_for_specific_blob_groups(sequence):
         contact_probability : numpy.ndarray
             Array of contact probabilities.
     """      
-    rgyr_filename = f"{input_path}/blob_Rg_{sequence}_wrapped_PIF_equil_del.txt"
+    rgyr_filename = f"{input_path}/blob_Rg_{sequence}_wrapped_centered_PIF_equil_del.txt"
     blob_center_coords = read_center_file(sequence)
     
     number_of_frames = blob_center_coords.shape[0]
@@ -125,11 +125,11 @@ def fig_gen_difference_between_variants(ax, sequence1, sequence2, fig):
         None
     """
     probability_mean = calc_contact_difference_between_variants(sequence1, sequence2)
-    imgp = ax.imshow(probability_mean, origin='lower', aspect='equal', cmap='PRGn', vmin=-50, vmax=50)
+    imgp = ax.imshow(probability_mean, origin='lower', aspect='equal', cmap='PRGn', vmin=-40, vmax=40)
     ax.set_title(fr'{sequence1}-A66', loc='center', fontsize='20')
 
     # Draw the colorbar right next to the subplot
-    if sequence1 in ["V", "I"]:
+    if sequence1 in ["V66", "I66"]:
         box = ax.get_position()
         cbar_width = 0.02
         cbar_pad = 0.01

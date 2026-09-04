@@ -24,7 +24,7 @@ def read_center_file(sequence):
         blob_center_coords : numpy.ndarray
             Array of blob center coordinates.
     """
-    center_coords_filename = f"midpoint_{sequence}_wrapped_PIF_equil_del.txt" 
+    center_coords_filename = f"midpoint_{sequence}_wrapped_centered_PIF_equil_del.txt" 
     blob_center_coords = np.loadtxt(f'{input_path}/{center_coords_filename}')
 
     return blob_center_coords
@@ -43,7 +43,7 @@ def get_num_of_blobs(sequence):
         rgyr_filename : str
             The filename of the Rg file.
     """
-    rgyr_filename = f"blob_Rg_{sequence}_wrapped_PIF_equil_del.txt"
+    rgyr_filename = f"blob_Rg_{sequence}_wrapped_centered_PIF_equil_del.txt"
     with open(f"{input_path}/{rgyr_filename}", 'r') as fp:
         num_of_blobs = len(fp.readlines()) # The number of blobs is equal to the number of lines in the rgyr file
 
@@ -137,7 +137,7 @@ def fig_gen(ax, sequence, fig):
     ax.set_title(f'{sequence}', loc='center', fontsize='20')
 
     # Colorbar properties
-    if sequence in ["L", "I"]:
+    if sequence in ["L66", "I66"]:
         box = ax.get_position()
         cbar_width = 0.008
         cbar_pad = 0.01

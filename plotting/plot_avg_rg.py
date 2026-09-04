@@ -22,7 +22,7 @@ def read_data(sequence):
             A DataFrame containing the data.
     """
 
-    data = pd.read_csv(f'{input_path}/rg_{sequence}_wrapped_PIF_equil_del.txt', sep=r'\s', header=None, names=['data'], engine='python')
+    data = pd.read_csv(f'{input_path}/rg_{sequence}_wrapped_centered_PIF_equil_del.txt', sep=r'\s', header=None, names=['data'], engine='python')
 
     return data
 
@@ -79,7 +79,7 @@ def plot_avg_rg():
 
         ax.bar(sequence, avg_rg, color='gray')
         ax.errorbar(sequence, avg_rg, yerr=do_stats(rg_data), capsize=3, elinewidth=1, color='black')
-        print(sequence,avg_rg)
+        print(sequence, round(avg_rg, 1), round(do_stats(rg_data), 2))
     
     ax.set_ylabel(r'$\langle R_{g} \rangle$ (Å)', fontsize=20)
 

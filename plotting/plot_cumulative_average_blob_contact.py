@@ -20,7 +20,7 @@ def read_center_file():
             Array of blob center coordinates.
     """
 
-    center_coords_filename = f"midpoint_{sequence}_wrapped_PIF_equil_del.txt"
+    center_coords_filename = f"midpoint_{sequence}_wrapped_centered_PIF_equil_del.txt"
     blob_center_coords = np.loadtxt(f"{input_path}/{center_coords_filename}")
 
     return blob_center_coords
@@ -48,7 +48,7 @@ def calc_contacts():
     coords_j = blob_center_coords[:, j_cols]
 
     # Read Rg
-    rgyr_filename = f"blob_Rg_{sequence}_wrapped_PIF_equil_del.txt"
+    rgyr_filename = f"blob_Rg_{sequence}_wrapped_centered_PIF_equil_del.txt"
     rgyr_values_blob_i = linecache.getline(f"{input_path}/{rgyr_filename}",blob_i + 1).strip()
     rgyr_values_blob_j = linecache.getline(f"{input_path}/{rgyr_filename}",blob_j + 1).strip()
 

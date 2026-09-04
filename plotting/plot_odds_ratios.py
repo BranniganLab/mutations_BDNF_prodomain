@@ -24,7 +24,7 @@ def read_OR_file(sequence):
             A DataFrame containing the odds ratios for the given sequence
     """
 
-    OR_data = pd.read_csv(f"{input_path}/{sequence}_wrapped_PIF_equil_del_odds_ratios_{association}.txt", sep=r'\s+', header=None)
+    OR_data = pd.read_csv(f"{input_path}/{sequence}_wrapped_centered_PIF_equil_del_odds_ratios_{association}.txt", sep=r'\s+', header=None)
     
     return OR_data
 
@@ -137,6 +137,22 @@ def compute_fisher_exact(a, b, c, d):
 
     return odds_ratio, p_value
 
+def association_to_blob_names(association):
+    """
+    Converts an association such as '8_12_to_12_2'
+    to blob contact names such as 'v-m' and 'm-n'.
+    """
+
+    contact_A, contact_B = association.split("_to_")
+
+    blob1_A, blob2_A = map(int, contact_A.split("_"))
+    blob1_B, blob2_B = map(int, contact_B.split("_"))
+
+    name_A = f"{blob_id_to_blob_name[blob1_A]}-{blob_id_to_blob_name[blob2_A]}"
+    name_B = f"{blob_id_to_blob_name[blob1_B]}-{blob_id_to_blob_name[blob2_B]}"
+
+    return name_A, name_B
+
 def plot_OR():
     """
     Plots the odds ratios for all sequences of two blob pairs for a given association.
@@ -197,11 +213,11 @@ def plot_OR():
         if star:
             plt.text(i,ci_uppers[i] + 0.0, star, ha="center", fontsize=16)
 
-    # contact_A = str(association[0:1]).lower()
-    # contact_B = str(association[2:3]).lower()
-    # ylabel = fr"$\mathrm{{OR}}_{{{contact_A} \rightarrow {contact_B}}}$"
+    contact_A, contact_B = association_to_blob_names(association)
 
-    # ax.set_ylabel(ylabel, fontsize=20)
+    ylabel = fr"$\mathrm{{OR}}_{{{contact_A} \rightarrow {contact_B}}}$"
+
+    ax.set_ylabel(ylabel, fontsize=20)
     ax.tick_params(axis='both', labelsize=18)
 
     plt.ylim(0,6.5)
@@ -227,5 +243,12 @@ if __name__ == "__main__":
     output_path = args.output_path
     n_independent_samples = int(args.n_samples)
     sequences = args.sequences.split()
+
+    blob_id_to_blob_name = {
+        8:  "v",
+        12: "m",
+        2:  "n",
+        16: "c",
+    }
 
     plot_OR()
