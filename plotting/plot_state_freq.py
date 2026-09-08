@@ -54,13 +54,14 @@ def plot_state_freq():
             row["state_d"]
         ], dtype=float)
 
-        N = counts.sum()
+        num_frames = counts.sum()
 
-        # Convert to percentages
-        freqs = counts / N * 100
+        # Observed state frequecies (p) for each state
+        p = counts / num_frames
+        freqs = p * 100
 
         # Binomial SEM (%)
-        sems = np.sqrt((counts / N) * (1 - counts / N) / N) * 100
+        sems = np.sqrt(p * (1 - p) / n_independent_samples) * 100
 
         # Store frequencies in list
         state_a.append(freqs[0])
@@ -129,6 +130,7 @@ if __name__ == "__main__":
     parser.add_argument("--input_path", required=True, help="Path to the input data.") 
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
     parser.add_argument("--sequences", required=False, default="F66 M66 V66 L66 A66 Y66 I66", help="Sequence names.")
+    parser.add_argument("--n_samples", required=False, default=1088, help="Number of samples (1088).")
 
     args = parser.parse_args()
 
@@ -137,6 +139,7 @@ if __name__ == "__main__":
     input_path = args.input_path
     output_path = args.output_path
     sequences = args.sequences.split()
+    n_independent_samples = int(args.n_samples)
     
     output_file_name = f"state_freq_{association}"
 
