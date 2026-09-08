@@ -1,23 +1,22 @@
 # Set arguments
-set Lmin 4
-set H_star 0.37
-set hydrophobicity_scale "Kyte-Doolittle"
-set resid_to_reassign 65
-set resid_new_user1 1
-set resid_new_user2 8.0
-set N_terminal_index 2
-set C_terminal_index 16
-set blob_distance_cutoff 5.5
-set variant_index 8
-set mediator_index 12
-set state1 VM_MN
-set state2 MN_NC
-set residue_contact_distance_cutoff 6
-
 set structure [lindex $argv 0]
 set full_traj [lindex $argv 1]
 set traj_without_equilibration [lindex $argv 2]
 set output_dir [lindex $argv 3]
+set Lmin [lindex $argv 4]
+set H_star [lindex $argv 5]
+set hydrophobicity_scale [lindex $argv 6]
+set resid_to_reassign [lindex $argv 7]
+set resid_new_user1 [lindex $argv 8]
+set resid_new_user2 [lindex $argv 9]
+set N_terminal_index [lindex $argv 10]
+set C_terminal_index [lindex $argv 11]
+set blob_distance_cutoff [lindex $argv 12]
+set variant_index [lindex $argv 13]
+set mediator_index [lindex $argv 14]
+set state1 [lindex $argv 15]
+set state2 [lindex $argv 16]
+set residue_contact_distance_cutoff [lindex $argv 17]
 
 set full_traj_base [file rootname [file tail $full_traj]]
 set traj_without_equilibration_base [file rootname [file tail $traj_without_equilibration]]
@@ -29,7 +28,7 @@ set traj_without_equilibration_base [file rootname [file tail $traj_without_equi
 
 # # Measures the radius of gyration over time of the protein that includes equilibration time
 # source calc_rg_of_protein.tcl
-# calcRgofProtein	$output_dir $full_traj_base
+# calcRgofProtein $output_dir $full_traj_base
 
 # Load sequence into VMD
 mol new $structure type gro waitfor all
