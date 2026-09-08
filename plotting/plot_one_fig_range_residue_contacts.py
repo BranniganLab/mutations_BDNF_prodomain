@@ -12,7 +12,7 @@ The data used for the contact frequency was generated from "calc_sidechain_conta
 
 def read_file(sequence):
     """
-    Reads the coordinates of the blob centers from a file.
+    Reads the contact frequency data.
     
     Arguments:
         sequence : str
@@ -41,27 +41,17 @@ def keep_only_desired_residue_range(sequence):
     contact_freq_data = read_file(sequence)
 
     if x_axis_beg_range < y_axis_beg_range:
-
-        x_y_contacts = (
-            contact_freq_data[
-                (contact_freq_data["resid1"].between(x_axis_beg_range, x_axis_end_range)) &
-                (contact_freq_data["resid2"].between(y_axis_beg_range, y_axis_end_range))].copy())
-
+        contact_range = contact_freq_data[
+            contact_freq_data["resid1"].between(x_axis_beg_range, x_axis_end_range) & 
+            contact_freq_data["resid2"].between(y_axis_beg_range, y_axis_end_range)].copy()
     else:
+        contact_range = contact_freq_data[
+            contact_freq_data["resid1"].between(y_axis_beg_range, y_axis_end_range) & 
+            contact_freq_data["resid2"].between(x_axis_beg_range, x_axis_end_range)].copy()
 
-        y_x_contacts = (
-            contact_freq_data[
-                (contact_freq_data["resid1"].between(y_axis_beg_range, y_axis_end_range)) &
-                (contact_freq_data["resid2"].between(x_axis_beg_range, x_axis_end_range))].copy())
+        contact_range[["resid1", "resid2"]] = contact_range[["resid2", "resid1"]]
 
-        # Reverse orientation to match x-axis and y-axis
-        y_x_contacts[["resid1", "resid2"]] = y_x_contacts[["resid2", "resid1"]]
-
-        x_y_contacts = y_x_contacts
-
-        contact_range =x_y_contacts.reset_index(drop=True)
-
-    return contact_range
+    return contact_range.reset_index(drop=True)    
 
 def create_heatmap_matrix(sequence):
     """
