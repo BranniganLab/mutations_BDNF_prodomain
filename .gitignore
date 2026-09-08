@@ -9,3 +9,5 @@ figures10
 figures11
 trajectories
 blobulator
+__pycache__
+.DS_Store
