@@ -36,6 +36,7 @@ for seq in $SEQUENCES; do
       "$PROCESSED_TRAJ_DIR/${seq}_wrapped_centered_PIF_del.xtc" \
       "$PROCESSED_TRAJ_DIR/${seq}_wrapped_centered_PIF_equil_del.xtc" \
       "$DATA_DIR" \
+      "$BLOBULATOR_TRAJ" \
       "$L_MIN" \
       "$H_STAR" \
       "$HYDROPHOBICITY_SCALE" \
