@@ -1,0 +1,22 @@
+name: mutations-bdnf-prodomain
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python 3.11 is supported by the plotting and post-processing scripts.
+  - python=3.11
+
+  # Python dependencies used by plotting/ and post_processing/.
+  - numpy>=1.24,<3
+  - pandas>=2.0,<3
+  - matplotlib>=3.7,<4
+  - scipy>=1.10,<2
+
+  # Required by post_processing/process_trajectory.sh and the Python helpers.
+  - gromacs>=2023,<2027
+
+  # VMD is not included because it is distributed separately under its own
+  # license. Install VMD and make sure the `vmd` executable is on PATH before
+  # running post_processing/process_trajectory.sh or analysis/run_analysis.sh.
