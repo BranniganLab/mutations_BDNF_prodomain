@@ -9,7 +9,8 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 TRAJ_DIR="$ROOT_DIR/trajectories"
 PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed11"
 DATA_DIR="$ROOT_DIR/data11"
-BLOBULATOR_TRAJ="$ROOT_DIR/blobulator/VMD_scripts"
+BLOBULATOR_DIR="${BLOBULATOR_DIR:-$ROOT_DIR/../blobulator}"
+BLOB_GUI_DIR="$BLOBULATOR_DIR/VMD_scripts"
 
 SEQUENCES="${SEQUENCES:-F66 M66 V66 L66 A66 Y66 I66}"
 L_MIN=4
@@ -36,7 +37,7 @@ for seq in $SEQUENCES; do
       "$PROCESSED_TRAJ_DIR/${seq}_wrapped_centered_PIF_del.xtc" \
       "$PROCESSED_TRAJ_DIR/${seq}_wrapped_centered_PIF_equil_del.xtc" \
       "$DATA_DIR" \
-      "$BLOBULATOR_TRAJ" \
+      "$BLOB_GUI_DIR" \
       "$L_MIN" \
       "$H_STAR" \
       "$HYDROPHOBICITY_SCALE" \
