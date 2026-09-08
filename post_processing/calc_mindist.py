@@ -13,7 +13,7 @@ def mindist():
         None
     """
 
-    subprocess.run(f"echo 1 > pro ; gmx mindist -f {input_traj_path}/{seq}_wrapped_centered.xtc -s {raw_traj_path}/{seq}/{seq}.tpr -xvg none -od {seq}_mindist.xvg -pi < pro", shell=True, cwd=output_data_path)
+    subprocess.run(f"echo 1 > pro ; gmx mindist -f {input_traj_path}/{seq}_wrapped_centered.xtc -s {raw_traj_path}/{seq}/{seq}.tpr -xvg none -od {seq}_mindist.xvg -pi < pro", shell=True, cwd=output_data_path, check=True)
 
 def write_periodic_image_frames_to_list():
     """
