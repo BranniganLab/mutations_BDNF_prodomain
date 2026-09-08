@@ -179,8 +179,8 @@ if __name__ == "__main__":
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
     parser.add_argument("--n_independent_samples", required=False, default=1088, help="Number of samples (1088).")
     parser.add_argument("--cutoff_distance", required=False, default=0.55, help="Cutoff distance.")
-    parser.add_argument("--GROUP_A", nargs="+", required=False, default=[0, 1, 2, 3, 4, 5], help="Blob indices for the y axis.")
-    parser.add_argument("--GROUP_B", nargs="+", required=False, default=[7, 8, 9, 10], help="Blob indices for the x axis.")
+    parser.add_argument("--GROUP_A", nargs="+", type=int, required=False, default=[0, 1, 2, 3, 4, 5], help="Blob indices for the y axis.")
+    parser.add_argument("--GROUP_B", nargs="+", type=int, required=False, default=[7, 8, 9, 10], help="Blob indices for the x axis.")
 
     args = parser.parse_args()
 
