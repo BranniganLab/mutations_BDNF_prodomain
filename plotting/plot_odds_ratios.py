@@ -71,8 +71,6 @@ def scale_contingency_table(a, b, c, d):
     Scales a 2x2 contingency table of counts (a, b, c, d) to have n_independent_samples observations
 
     Arguments
-        OR : float
-            the odds ratio
         a : int
             number of positive counts in the first group
         b : int
