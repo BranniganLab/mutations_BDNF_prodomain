@@ -19,7 +19,7 @@ def read_file(sequence):
             The sequence name.
     
     Returns:
-        contact_freq_data : numpy.ndarray
+        contact_freq_data : pandas.DataFrame
             Array of contact frequencies.
     """
     contact_freq_data = pd.read_csv(f'{input_path}/sc_contactfreqs_6A_{sequence}_{state}.txt', sep=r'\s+', header=None, names=["resid1", "resid2", "freq"])

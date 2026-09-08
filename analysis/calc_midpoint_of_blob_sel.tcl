@@ -7,7 +7,7 @@ proc calcBlobMidpoint {selN selO} {
     #       selO (): An atom selection of the O atom of a blob at a particular frame
     #
     #   Returns:
-    #       midpoint (float): The midpoint of a blob
+    #       midpoint (list): Three coordinate xyz midpoint of a selection
 
     set coordN [lindex [$selN get {x y z}] 0]
     set coordO [lindex [$selO get {x y z}] 0]

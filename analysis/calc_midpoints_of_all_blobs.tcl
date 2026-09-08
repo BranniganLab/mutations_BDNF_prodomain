@@ -2,7 +2,7 @@ proc calcAllBlobMidpoints {output_dir traj_without_equilibration_base} {
 
     #   This script outputs one file that contains xyz coordinates of the midpoint for each blob
     #   Each row corresponds to a frame. The first 3 values are xyz coordinates of the first blob 
-    #   in the protein sequence (e.g. p1 of the BDNF prodomain) and so on. 
+    #   in the protein sequence (e.g. p1 of the BDNF prodomain) and so on. The values are calculated in nm.
     #   Note: This script does not consider s-blobs!
     #       
     #   Arguments:

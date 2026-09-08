@@ -3,7 +3,7 @@ import argparse
 
 def wrap_and_center_protein(input_trajectory, output_trajectory, topology, group_number=1):
     """
-    Makes the protein whole, wraps it into the box, and centers it in the box.
+    Makes the protein whole, wraps it into the box, and centers it in the box. Group number = 1 selects the Protein group in the GROMACS index file.
 
     The protein group is selected automatically for both:
         1. the centering group

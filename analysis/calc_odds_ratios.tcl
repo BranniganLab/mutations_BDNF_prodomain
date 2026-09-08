@@ -1,6 +1,6 @@
 proc calc_odds_ratios {contactA_blobi contactA_blobj contactB_blobi contactB_blobj cutoff output_dir traj_without_equilibration_base} {
 
-    #   Writes the number of frames each each of four contact states and calculates the odds ratio (OR)
+    #   Counts the number of frames in each of four contact states and calculates the odds ratio (OR)
     #   with these values for all blob pairs involving the Variant (V) and a termini blob to a file.
     # 	The 'X' in the variables below refers to a blob of the protein.
     #
@@ -9,9 +9,6 @@ proc calc_odds_ratios {contactA_blobi contactA_blobj contactB_blobi contactB_blo
     #       contactA_blobj (int): Index of blobj in contact A of the association, defined by blobulation
     # 		contactB_blobi (int): Index of blobi in contact B of the association, defined by blobulation
     # 		contactB_blobj (int): Index of blobj in contact B of the association, defined by blobulation
-    # 		lMin (int): Minimum length of a blob (4)
-    #       H (float): Hydropathy threshold (0.37)
-    #		dictInput (string): Hydrophobicity scale ("Kyte-Doolittle")
     # 		cutoff (float): Cutoff distance between two blobs for a contact in Angstroms (5.5)
     #       output_dir (str): Directory for output 
     #       traj_without_equilibration_base (str): Name of the trajectory that does not contain equilibration frames

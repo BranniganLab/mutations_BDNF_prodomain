@@ -11,7 +11,7 @@ This script plots the radius of gyration over time.
 
 def read_data(sequence):
     """
-    Reads a file containing the radius of gyration data for a given sequence (PIF_del_full_traj_wrapped_centered.xtc file).
+    Reads a file containing the radius of gyration data for a given sequence.
     
     Arguments
         sequence : str
