@@ -233,7 +233,7 @@ if __name__ == "__main__":
     parser.add_argument("--association", required=True, help="Odds ratio association.")
     parser.add_argument("--input_path", required=True, help="Path to the input data.") 
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
-    parser.add_argument("--n_samples", required=False, default=1088, help="Number of samples (1088).")
+    parser.add_argument("--n_independent_samples", required=False, default=1088, help="Number of samples (1088).")
     parser.add_argument("--sequences", required=False, default="F66 M66 V66 L66 A66 Y66 I66", help="Sequence names.")
 
     args = parser.parse_args()
@@ -241,7 +241,7 @@ if __name__ == "__main__":
     association = args.association
     input_path = args.input_path
     output_path = args.output_path
-    n_independent_samples = int(args.n_samples)
+    n_independent_samples = int(args.n_independent_samples)
     sequences = args.sequences.split()
 
     blob_id_to_blob_name = {

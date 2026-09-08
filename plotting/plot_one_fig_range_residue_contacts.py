@@ -172,18 +172,18 @@ def plot_heatmap(ax, sequence, fig):
     ax.set_title(f"{sequence}66", loc='center', fontsize='30')
 
     fig.tight_layout()
-    fig.subplots_adjust(right=0.91)  # Adjust the right side of the subplots to make space for the colorbar
+    
+    # Adjust the right side of the subplots to make space for the colorbar
+    fig.subplots_adjust(right=0.91)  
 
-        # Add a colorbar
+    # Draw the colorbar right next to the subplot
     if sequence == "L" or sequence == "I":
-        # Draw the colorbar right next to the subplot
         box = ax.get_position()  # [x0, y0, width, height]
         cbar_width = 0.02
         cbar_pad = 0.01
         cbar_x = box.x1 + cbar_pad
 
         if sequence == 'L_hid_11' or sequence == "L":
-            # cbar_ax = fig.add_axes([cbar_x - 0.018, box.y0 + 0.035, cbar_width, box.height - 0.035])
             cbar_ax = fig.add_axes([cbar_x, box.y0, cbar_width, box.height])
         elif sequence == 'I_hid_11' or sequence == "I":
             cbar_ax = fig.add_axes([cbar_x, box.y0, cbar_width, box.height])
