@@ -1,7 +1,8 @@
 proc calcAllBlobRg {output_dir traj_without_equilibration_base} {
 
     #   This script outputs one file that contains Rg values of each frame for each blob. 
-    #   The number of blobs corresponds to the number of rows in the file. 
+    #   The number of blobs corresponds to the number of rows in the file.
+    #   Each row contains Rg values of one blob for all frames.
     #   Note: This script does not consider s-blobs!
     #       
     #   Arguments:

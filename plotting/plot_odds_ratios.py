@@ -83,8 +83,8 @@ def scale_contingency_table(a, b, c, d):
             number of negative counts in the second group
 
     Returns
-        scaled_int : numpy.ndarray
-            the scaled contingency table
+        scaled_int : tuple of ints
+            the integer-adjusted values of (a, b, c, d) that sum to n_independent_samples
     """
 
     counts = np.array([a, b, c, d], dtype=float)

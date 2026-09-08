@@ -57,11 +57,11 @@ def plot_rg_line_graph():
     for sequence in sequences: # ['V66', 'M66', 'F66', 'A66', 'Y66', 'L66', 'I66']: # 
         rg_data = read_data(sequence)
         time_in_ps = np.arange(len(rg_data)) * ps_per_frame   # Convert frames to time in picoseconds
-        time_in_us = time_in_ps / 1000  # Convert time to nanoseconds
+        time_in_ns = time_in_ps / 1000  # Convert time to nanoseconds
 
         smoothed_data = rg_data.rolling(window).mean()
 
-        ax.plot(time_in_us, smoothed_data, c=seq_colors[sequence], label=sequence, linewidth=2)
+        ax.plot(time_in_ns, smoothed_data, c=seq_colors[sequence], label=sequence, linewidth=2)
 
     ax.legend(markerscale=10, fontsize=15, title_fontsize=15, loc='upper right')
 

@@ -1,9 +1,11 @@
 proc measureContactsSC {cutoff output_dir state} {
 
     #   Calculates the contact frequencies between sidechains (excluding GLY) of residues.
+    #   Specifically, this script calculates the center of mass distances between non-glycine side chains
+    #   It reports the frequencies as percentages of the entire analyzed trajectory
     #
     #   Arguments:
-    #       cutoff (float/int): Distance between two residues that defines a contact
+    #       cutoff (float/int): Distance between two residues that defines a contact (Angstroms)
     #       output_dir (str): Directory for output 
     #       state (str): Contact state
     #

@@ -2,14 +2,14 @@ proc classify_contact_state {V_index M_index N_index C_index cutoff cluster outp
     
     #   Classifies an ensemble (trajectory) based on the presence or absence of contacts.
     #   This script deletes the frames of the original trajectory where the condition for a contact state is not satisfied,
-    #   and saves it as a new trajectory (Note: The script does not modify the original trajectory)
+    #   then rewrites the retained frames as a new trajectory (Note: The script does not modify the original trajectory)
     #
     #   Arguments:
     #       V_index (int): The index of Mutant blob (8.0)
     #       M_index (int): The index of Partner blob (12.0)
     #       N_index (int): The index of N-terminal blob (2.0)
     #       C_index (int): The index of C-terminal blob 2 (16.0)
-    #       cutoff (float or int): The cutoff value for calculating a contact (A) (5.5)
+    #       cutoff (float or int): The cutoff value for calculating a contact (Angstroms) (5.5)
     #       cluster (str): The desired cluster to calculate
     #       output_dir (str): Directory for output 
     #
