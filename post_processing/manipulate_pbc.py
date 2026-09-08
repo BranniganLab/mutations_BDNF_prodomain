@@ -3,17 +3,13 @@ import argparse
 
 def wrap_and_center_protein(input_trajectory, output_trajectory, topology, group_number=1):
     """
-    Center the protein and apply molecule-level periodic boundary wrapping.
-
-    This performs the same operation as:
-
-        gmx trjconv -pbc mol -center -ur compact
+    Makes the protein whole, wraps it into the box, and centers it in the box.
 
     The protein group is selected automatically for both:
         1. the centering group
         2. the output group
 
-    Arguments
+    Arguments:
         input_trajectory : Path
             Input trajectory file.
 
@@ -27,7 +23,7 @@ def wrap_and_center_protein(input_trajectory, output_trajectory, topology, group
             GROMACS index number corresponding to the Protein group.
             Default is 1.
 
-    Returns
+    Returns:
         None
     """
 

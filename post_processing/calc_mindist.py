@@ -43,7 +43,14 @@ def write_periodic_image_frames_to_list():
 
 def write_to_text_file(list_of_time_frames_to_delete):
     """
-        Writes list to text file.
+    Writes list to text file.
+
+    Arguments:
+        list_of_time_frames_to_delete : list
+            List of time frames that contain periodic images which should be deleted.
+
+    Returns:
+        None
     """
     file = open(f'{output_data_path}/{seq}_mindist_frames_to_delete.txt', 'w')
     for item in list_of_time_frames_to_delete:
