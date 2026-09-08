@@ -12,7 +12,7 @@ The data used for the contact frequency was generated from "calc_sidechain_conta
 
 def read_file(sequence):
     """
-    Reads the contact frequency data.
+    Reads residue-pair side chain contact frequencies from a text file.
     
     Arguments:
         sequence : str
