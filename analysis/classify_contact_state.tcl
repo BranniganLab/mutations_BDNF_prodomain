@@ -11,6 +11,7 @@ proc classify_contact_state {V_index M_index N_index C_index cutoff cluster outp
     #       C_index (int): The index of C-terminal blob 2 (16.0)
     #       cutoff (float or int): The cutoff value for calculating a contact (A) (5.5)
     #       cluster (str): The desired cluster to calculate
+    #       output_dir (str): Directory for output 
     #
     #   Returns:
     #       None

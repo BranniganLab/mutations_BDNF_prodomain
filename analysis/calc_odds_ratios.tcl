@@ -13,6 +13,8 @@ proc calc_odds_ratios {contactA_blobi contactA_blobj contactB_blobi contactB_blo
     #       H (float): Hydropathy threshold (0.37)
     #		dictInput (string): Hydrophobicity scale ("Kyte-Doolittle")
     # 		cutoff (float): Cutoff distance between two blobs for a contact in Angstroms (5.5)
+    #       output_dir (str): Directory for output 
+    #       traj_without_equilibration_base (str): Name of the trajectory that does not contain equilibration frames
     #
     #   Returns:
     #       None

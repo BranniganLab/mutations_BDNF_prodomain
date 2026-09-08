@@ -1,11 +1,12 @@
-proc blobulate_protein {lMin H dictInput path_to_blobulator} {
+proc blobulate_protein {L_Min H_star hydrophobicity_scale path_to_blobulator} {
 
     #   Blobulates a protein
     #
     #   Arguments:
-    #       lMin (int): Minimum length of a blob (4)
-    #       H (float): Hydropathy threshold (0.37)
-    #		dictInput (string): Hydrophobicity scale ("Kyte-Doolittle")
+    #       L_Min (int): Minimum length of a blob (4)
+    #       H_star (float): Hydropathy threshold (0.37)
+    #		hydrophobicity_scale (string): Hydrophobicity scale ("Kyte-Doolittle")
+    #       path_to_blobulator: Path to the VMD scripts in the blobulator repo
     #
     #   Returns:
     #       None
@@ -15,7 +16,7 @@ proc blobulate_protein {lMin H dictInput path_to_blobulator} {
 	cd $path_to_blobulator
     source blobulation.tcl
 
-	::blobulator::blobulate top $lMin $H "all" $dictInput
+	::blobulator::blobulate top $L_Min $H_star "all" $hydrophobicity_scale
 
     cd $orig_dir
 

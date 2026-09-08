@@ -4,6 +4,8 @@ proc measureContactsSC {cutoff output_dir state} {
     #
     #   Arguments:
     #       cutoff (float/int): Distance between two residues that defines a contact
+    #       output_dir (str): Directory for output 
+    #       state (str): Contact state
     #
     #   Returns:
     #       None

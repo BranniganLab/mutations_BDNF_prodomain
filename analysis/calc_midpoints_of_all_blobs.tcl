@@ -6,7 +6,8 @@ proc calcAllBlobMidpoints {output_dir traj_without_equilibration_base} {
     #   Note: This script does not consider s-blobs!
     #       
     #   Arguments:
-    #       None
+    #       output_dir (str): Directory for output 
+    #       traj_without_equilibration_base (str): Name of the trajectory that does not contain equilibration frames
     #
     #   Returns:
     #       None

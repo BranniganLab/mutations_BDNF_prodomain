@@ -3,9 +3,8 @@ proc calcReeofBlobs {output_dir traj_without_equilibration_base} {
     # Calculates the average end to end distance of each blob in a protein sequence and outputs it into a file.
     # 
     #   Arguments:
-    #       lMin (int): Minimum length of a blob (4)
-    #       H (float): Hydropathy threshold (0.37)
-    #       dictInput (string): Hydrophobicity scale ("Kyte-Doolittle")
+    #       output_dir (str): Directory for output 
+    #       traj_without_equilibration_base (str): Name of the trajectory that does not contain equilibration frames
     #
     #   Returns:
     #       None

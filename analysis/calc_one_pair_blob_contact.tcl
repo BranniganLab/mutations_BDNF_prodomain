@@ -6,7 +6,9 @@ proc calc_one_pair_blob_contact {blobIndexi blobIndexj cutoff output_dir traj_wi
 	# 		blobIndexi (int): index of a blob in a sequence
 	# 		blobIndexj (int): index of a blob in a sequence
 	# 		cutoff (float): distance cut off between two blobs in angstroms (5.5)
-    #
+    #       output_dir (str): Directory for output 
+    #       traj_without_equilibration_base (str): Name of the trajectory that does not contain equilibration frames    
+    # 
     #   Returns:
     #       None
     

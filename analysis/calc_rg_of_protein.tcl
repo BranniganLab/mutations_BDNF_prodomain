@@ -3,7 +3,8 @@ proc calcRgofProtein {output_dir traj_name} {
     #   Calculates the radius of gyration (Rg) of a protein sequence in each frame and outputs it into a file.
     # 
     #   Arguments:
-    #       None
+    #       output_dir (str): Directory for output 
+    #       traj_name (str): Name of the trajectory
     #
     #   Returns:
     #       None

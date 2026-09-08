@@ -3,8 +3,9 @@ proc calcReeofProtein {output_dir traj_without_equilibration_base} {
     # Calculates the end to end distance of the entire protein sequence for each frame and outputs it into a file.
     # 
     #   Arguments:
-    #       None
-    #
+    #       output_dir (str): Directory for output 
+    #       traj_without_equilibration_base (str): Name of the trajectory that does not contain equilibration frames 
+    # 
     #   Returns:
     #       None
     
