@@ -33,9 +33,9 @@ def write_periodic_image_frames_to_list():
     list_of_time_frames_to_delete =[]
 
     for mindist_value, time_frame in zip(mindist_file['mindist'], mindist_file['time_frame']):
-        if mindist_value < max_value:
+        if mindist_value < max_distance:
             frame_scaled = time_frame
-            frame = int(frame_scaled / 100) # Convert the frame to time 
+            frame = int(frame_scaled / ps_per_frame) # Convert the frame to time 
             if frame > 0:
                 list_of_time_frames_to_delete.append(frame)
 
@@ -59,6 +59,7 @@ if __name__=="__main__":
     parser.add_argument("--output_data_path", required=True, help="Path to the output data.")
     parser.add_argument("--sequences", required=False, default="F66 M66 V66 L66 A66 Y66 I66", help="Sequence names.")
     parser.add_argument("--max_distance", required=False, default=2, help="Maximum distance between two atoms in nm.")
+    parser.add_argument("--ps_per_frame", required=False, default=100.0, help="Time in picoseconds per frame.")
 
     args = parser.parse_args()
 
@@ -66,7 +67,8 @@ if __name__=="__main__":
     input_traj_path = args.input_traj_path
     output_data_path = args.output_data_path
     sequences = args.sequences.split()
-    max_value = float(args.max_distance)
+    max_distance = float(args.max_distance)
+    ps_per_frame = float(args.ps_per_frame)
         
     for seq in sequences:
         mindist()
