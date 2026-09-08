@@ -139,8 +139,17 @@ def compute_fisher_exact(a, b, c, d):
 
 def association_to_blob_names(association):
     """
-    Converts an association such as '8_12_to_12_2'
-    to blob contact names such as 'v-m' and 'm-n'.
+    Converts an association such as '8_12_to_12_2' to blob contact names such as 'v-m' and 'm-n'.
+
+    Arguments
+        association : str
+            an association such as '8_12_to_12_2'
+
+    Returns
+        name_A : str
+            a blob contact name such as 'v-m'
+        name_B : str
+            a blob contact name such as 'm-n'   
     """
 
     contact_A, contact_B = association.split("_to_")

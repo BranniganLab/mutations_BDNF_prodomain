@@ -21,6 +21,8 @@ def read_data(sequence, data_type):
     Arguments
         sequence : str
             The sequence name.
+        data_type : str
+            The type of data to read ('rg', 'ree', or 'single_pair_blob_contact_2_16').
     
     Returns
         data : pandas.DataFrame

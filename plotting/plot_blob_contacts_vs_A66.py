@@ -16,11 +16,11 @@ def read_center_file(sequence):
     Columns read as: column 1:x data, column 2:y data, column 3:z data (of the first blob of the sequence),
                      column 4:x data, column 5:y data, column 6:z data (of the second blob of the sequence)
                      column 7:x data, column 8:y data, column 9:z data (of the third blob of the sequence and so on)
-    Arguments:
+    Arguments
         sequence : str
             The sequence name.
     
-    Returns:
+    Returns
         blob_center_coords : numpy.ndarray
             Array of blob center coordinates.
     """
@@ -33,11 +33,11 @@ def calc_excess_distance_and_contacts_for_specific_blob_groups(sequence):
     """
     Calculates the excess distance between two blobs and if the distance between the two blobs is less than the cutoff distance, a counter will update the contact_probability array.
     
-    Arguments:
+    Arguments
         sequence : str
             The sequence name.    
     
-    Returns:
+    Returns
         contact_probability : numpy.ndarray
             Array of contact probabilities.
     """      
@@ -73,11 +73,11 @@ def calc_contact_frequency(sequence):
     """
     Calculates the average of the contact probability array and expresses it as a percentage by mulitplying by 100.
 
-    Arguments:
+    Arguments
         sequence : str
             The sequence name.
 
-    Returns:
+    Returns
         contact_frequency : numpy.ndarray
             Array of contact frequencies.        
     """ 
@@ -90,13 +90,13 @@ def calc_contact_difference_between_variants(sequence1, sequence2):
     """
     Calculates the difference between the contact frequencies of two sequences.
 
-    Arguments:
+    Arguments
         sequence1 : str
             The sequence name.
         sequence2 : str
             The sequence name of the reference.
 
-    Returns:
+    Returns
         contact_difference : numpy.ndarray
             Array of contact differences.
     """
@@ -111,7 +111,7 @@ def fig_gen_difference_between_variants(ax, sequence1, sequence2, fig):
     """
     Generates a plot of the contact frequencies on a heat map.
 
-    Arguments:
+    Arguments
         ax : matplotlib.axes._subplots.AxesSubplot
             The subplot.
         sequence1 : str
@@ -121,7 +121,7 @@ def fig_gen_difference_between_variants(ax, sequence1, sequence2, fig):
         fig : matplotlib.figure.Figure
             The figure.
 
-    Returns:
+    Returns
         None
     """
     probability_mean = calc_contact_difference_between_variants(sequence1, sequence2)
@@ -149,10 +149,10 @@ def combine_blob_contact_plots_difference():
     """
     Generates a plot that contains blob contact frequencies for all sequences
 
-    Arguments:
+    Arguments
         None
 
-    Returns:
+    Returns
         None
     """
     fig, axes = plt.subplots(2, 3, figsize=(10, 10))
