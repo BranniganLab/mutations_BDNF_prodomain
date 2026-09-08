@@ -1,4 +1,4 @@
-proc blobulate_protein {lMin H dictInput} {
+proc blobulate_protein {lMin H dictInput path_to_blobulator} {
 
     #   Blobulates a protein
     #
@@ -12,9 +12,8 @@ proc blobulate_protein {lMin H dictInput} {
     
 
     set orig_dir [pwd]
-    # Choose the directory that contains "blobulation.tcl, for example:"
-    cd /home/lmr294/Brannigan/GitHub/blobulator/VMD_scripts 
-	source blobulation.tcl
+	cd $path_to_blobulator
+    source blobulation.tcl
 
 	::blobulator::blobulate top $lMin $H "all" $dictInput
 
