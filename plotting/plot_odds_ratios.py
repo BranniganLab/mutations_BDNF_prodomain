@@ -68,7 +68,7 @@ def calc_confidence_intervals(OR, a, b, c, d):
 
 def scale_contingency_table(a, b, c, d):
     """
-    Scales a 2x2 contingency table of counts (a, b, c, d) to have n_independent_samples observations
+    Creates an adjusted table scaled counts (a, b, c, d) which sum to n_independent_samples
 
     Arguments
         a : int
