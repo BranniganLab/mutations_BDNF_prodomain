@@ -29,7 +29,6 @@ python3 calc_mindist.py \
   --output_data_path "$DATA_DIR" \
   --sequences "$SEQUENCES" 
 
-
 # Remove periodic image frames from trajectory
 for seq in $SEQUENCES; do
   vmd -dispdev none \

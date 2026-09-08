@@ -36,8 +36,8 @@ def write_periodic_image_frames_to_list():
         if mindist_value < max_distance:
             frame_scaled = time_frame
             frame = int(frame_scaled / ps_per_frame) # Convert the frame to time 
-            if frame > 0:
-                list_of_time_frames_to_delete.append(frame)
+            # if frame >= 0:
+            list_of_time_frames_to_delete.append(frame)
 
     return list_of_time_frames_to_delete
 
