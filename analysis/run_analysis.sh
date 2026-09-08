@@ -9,7 +9,7 @@ ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 TRAJ_DIR="$ROOT_DIR/trajectories"
 PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed11"
 DATA_DIR="$ROOT_DIR/data11"
-BLOBULATOR_TRAJ=""$ROOT_DIR/blobulator/VMD_scripts"
+BLOBULATOR_TRAJ="$ROOT_DIR/blobulator/VMD_scripts"
 
 SEQUENCES="${SEQUENCES:-F66 M66 V66 L66 A66 Y66 I66}"
 L_MIN=4
