@@ -6,8 +6,8 @@ cd "$SCRIPT_DIR"
 
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
-INPUT_DIR="$ROOT_DIR/data11"
-FIGURE_DIR="$ROOT_DIR/figures11"
+INPUT_DIR="$ROOT_DIR/data"
+FIGURE_DIR="$ROOT_DIR/figures"
 
 mkdir -p "$FIGURE_DIR"
 
