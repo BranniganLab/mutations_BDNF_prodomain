@@ -34,7 +34,7 @@ VMD and GROMACS must be installed separately and should be available from the co
 
 The Blobulator is maintained in a separate repository and is required for the analysis workflow.
 
-Clone the Blobulator repository separately:
+Clone the [Blobulator](https://github.com/BranniganLab/blobulator) repository separately:
 
 ```bash
 cd ..
