@@ -1,6 +1,6 @@
-# Mutations of the BDNF Prodomain
+# Mutations of the BDNF prodomain paper
 
-This repository contains scripts for trajectory post-processing, Blobulator analysis, contact analysis, odds-ratio calculations, and figure generation for the BDNF prodomain mutation study.
+This repository contains scripts for trajectory post-processing, analysis, and plotting scripts for the figures in the BDNF prodomain paper. Raw trajectory files can be found in [this Zenodo](link) repository.
 
 ## Requirements
 
@@ -17,7 +17,7 @@ The Python dependencies are listed in [`environment.yml`](environment.yml).
 Clone this repository:
 
 ```bash
-git clone <REPOSITORY_URL>
+git clone git@github.com:BranniganLab/mutations_BDNF_prodomain.git
 cd mutations_BDNF_prodomain
 ```
 
@@ -28,17 +28,17 @@ conda env create -f environment.yml
 conda activate mutations-bdnf-prodomain
 ```
 
-VMD and GROMACS must be installed separately and available from the command line.
+VMD and GROMACS must be installed separately and should be available from the command line.
 
 ## Blobulator dependency
 
-Blobulator is maintained in a separate repository and is required for the analysis workflow.
+The Blobulator is maintained in a separate repository and is required for the analysis workflow.
 
-Clone Blobulator separately:
+Clone the Blobulator repository separately:
 
 ```bash
 cd ..
-git clone <BLOBULATOR_REPOSITORY_URL> blobulator
+git clone git@github.com:BranniganLab/blobulator.git
 ```
 
 The recommended directory structure is:
@@ -55,17 +55,10 @@ The analysis scripts expect the Blobulator VMD scripts to be located at:
 blobulator/VMD_scripts/
 ```
 
-If Blobulator is located elsewhere, set its path before running the analysis:
+If the Blobulator repository is located elsewhere, set its path before running the analysis:
 
 ```bash
 export BLOBULATOR_DIR="/path/to/blobulator"
-```
-
-Record the Blobulator commit or version used for the analysis so that the results can be reproduced:
-
-```bash
-cd /path/to/blobulator
-git rev-parse HEAD
 ```
 
 ## Repository organization
@@ -74,48 +67,36 @@ git rev-parse HEAD
 analysis/
     VMD and Tcl analysis scripts
 
-post_processing/
-    Trajectory processing and minimum-distance calculations
-
 plotting/
     Python scripts for generating figures
 
-data/
-    Input and output analysis data
-
-trajectories/
-    Input and processed trajectories
+post_processing/
+    Trajectory processing and minimum-distance calculations
 
 environment.yml
     Conda environment specification
+
+generate_figs.sh
+    Main script that runs the trajectory processing, analysis, and plotting
 ```
 
 ## Workflow
 
-### 1. Prepare trajectories
+### 1. Download trajectories
 
-Place the required trajectory and topology files in the expected directories under `trajectories/`.
+Download the trajectory files from [this Zenodo](link) and place the folder into the mutations_BDNF_prodomain folder.
 
-Run:
+### 2. Generate figures
 
-```bash
-cd post_processing
-bash process_trajectory.sh
-```
-
-This step performs trajectory preprocessing, periodic-boundary handling, minimum-distance analysis, PIF filtering, and equilibration-frame removal.
-
-### 2. Run trajectory analysis
-
-From the analysis directory, run:
+From the mutations_BDNF_prodomain directory, run:
 
 ```bash
-cd ../analysis
-bash run_analysis.sh
+./generate_figs.sh
 ```
 
-The analysis script runs the VMD/Tcl calculations, including:
+First process_trajectory.sh is called, which performs trajectory preprocessing, periodic-boundary handling, minimum-distance analysis, PIF filtering, and equilibration-frame removal.
 
+Then, run_analysis.sh is called, which performs the VMD/Tcl calculations, including:
 - Radius of gyration
 - Radius of gyration of Blobulator blobs
 - Blob midpoint calculations
@@ -124,16 +105,7 @@ The analysis script runs the VMD/Tcl calculations, including:
 - State classification
 - Odds-ratio calculations
 
-### 3. Generate figures
-
-Run:
-
-```bash
-cd ../plotting
-bash run_plotting.sh
-```
-
-The plotting scripts read the generated data files and save figures in the configured output directory.
+Lastly, run_plotting.sh is called, which reads the generated data files and save figures in the configured output directory.
 
 ## Configuration
 
@@ -161,17 +133,5 @@ Similarly, the Blobulator location can be overridden with:
 BLOBULATOR_DIR="/path/to/blobulator" bash run_analysis.sh
 ```
 
-## Reproducibility
-
-For each analysis, record:
-
-- Git commit of this repository
-- Git commit or version of Blobulator
-- GROMACS version
-- VMD version
-- Python version
-- Operating system
-- Values of analysis parameters and cutoffs
-- Input trajectory and topology files
-
-The trajectory files and external Blobulator repository are not necessarily included in this repository. Anyone reproducing the analysis must obtain those files separately.
+## Note
+The trajectory files and external Blobulator repository are not included in this repository. Anyone reproducing the analysis must obtain those files separately.
