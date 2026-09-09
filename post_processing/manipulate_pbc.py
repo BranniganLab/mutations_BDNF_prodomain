@@ -63,7 +63,7 @@ if __name__ == "__main__":
     sequences = args.sequences.split()
 
     for seq in sequences:
-        input_trajectory = (f"{raw_traj_path}/{seq}/{seq}_cut.xtc")
+        input_trajectory = (f"{raw_traj_path}/{seq}/{seq}.xtc")
         output_trajectory = (f"{processed_traj_path}/{seq}_wrapped_centered.xtc")
         topology = (f"{raw_traj_path}/{seq}/{seq}.tpr")
 
