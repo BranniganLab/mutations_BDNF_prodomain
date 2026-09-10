@@ -7,8 +7,8 @@ cd "$SCRIPT_DIR"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 TRAJ_DIR="$ROOT_DIR/trajectories"
-PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed"
-DATA_DIR="$ROOT_DIR/data"
+PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed11"
+DATA_DIR="$ROOT_DIR/data11"
 BLOBULATOR_DIR="${BLOBULATOR_DIR:-$ROOT_DIR/../blobulator}"
 BLOB_GUI_DIR="$BLOBULATOR_DIR/VMD_scripts"
 
@@ -26,6 +26,7 @@ VARIANT_BLOB_INDEX=8
 MEDIATOR_BLOB_INDEX=12
 STATE1="VM_MN"
 STATE2="MN_NC"
+STATE3="VM_NC"
 RESIDUE_CONTACT_CUTOFF=6
 
 for seq in $SEQUENCES; do
@@ -51,5 +52,6 @@ for seq in $SEQUENCES; do
       "$MEDIATOR_BLOB_INDEX" \
       "$STATE1" \
       "$STATE2" \
+      "$STATE3" \
       "$RESIDUE_CONTACT_CUTOFF" 
 done
