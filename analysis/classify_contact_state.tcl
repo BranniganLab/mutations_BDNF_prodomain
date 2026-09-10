@@ -125,10 +125,12 @@ proc check_conditional {VN VC VM MN MC NC cluster cutoff} {
         VM             {$VM > $cutoff}
         NC             {$NC > $cutoff}
 
-        1VC_0NC        {(($VC > $cutoff) || ($NC < $cutoff))}
+        VC_0NC         {(($VC > $cutoff) || ($NC < $cutoff))}
         0VC_0NC        {(($VC < $cutoff) || ($NC < $cutoff))}
-        1VC_NC         {(($VC > $cutoff) || ($NC > $cutoff))}
+        VC_NC          {(($VC > $cutoff) || ($NC > $cutoff))}
         0VC_NC         {(($VC < $cutoff) || ($NC > $cutoff))}
+
+        VM_NC          {(($VM > $cutoff) || ($NC > $cutoff))}
 
     }
 
