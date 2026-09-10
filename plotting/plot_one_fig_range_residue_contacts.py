@@ -22,7 +22,7 @@ def read_file(sequence):
         contact_freq_data : pandas.DataFrame
             Array of contact frequencies.
     """
-    contact_freq_data = pd.read_csv(f'{input_path}/sc_contactfreqs_6A_{sequence}_{state}.txt', sep=r'\s+', header=None, names=["resid1", "resid2", "freq"])
+    contact_freq_data = pd.read_csv(f'{input_path}/{res_type}_contactfreqs_6A_{sequence}_{state}.txt', sep=r'\s+', header=None, names=["resid1", "resid2", "freq"])
 
     return contact_freq_data
 
@@ -217,6 +217,7 @@ if __name__ == "__main__":
     parser.add_argument("--state", required=True, help="Contact state name used in the contact-frequency filename.")
     parser.add_argument("--x-range", nargs=2, type=int, required=True, metavar=("START", "END"), help="Residue range for the x-axis.")
     parser.add_argument("--y-range", nargs=2, type=int, required=True, metavar=("START", "END"), help="Residue range for the y-axis.")
+    parser.add_argument("--res_type", required=True, help="Residue type (e.g., 'bb' for backbone or 'sc' for side chain) used in the contact-frequency filename.")
     parser.add_argument("--input_path", required=True, help="Path to the input data.") 
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
     parser.add_argument("--start_residue", required=False, default="23", help="First residue of the protein.")
@@ -226,6 +227,7 @@ if __name__ == "__main__":
     state = args.state
     x_axis_beg_range, x_axis_end_range = args.x_range
     y_axis_beg_range, y_axis_end_range = args.y_range
+    res_type = args.res_type
     input_path = args.input_path
     output_path = args.output_path
     start_residue = int(args.start_residue)
@@ -256,6 +258,6 @@ if __name__ == "__main__":
     residue_range_str_y = f'{y_axis_beg_range}-{y_axis_end_range}'
     residue_range_str = f'{residue_range_str_x}_vs_{residue_range_str_y}'
 
-    output_filename = (f'sc_{residue_range_str}_contactfreqs_6A_{state}_all_seqs.pdf')
+    output_filename = (f'{res_type}_{residue_range_str}_contactfreqs_6A_{state}_all_seqs.pdf')
 
     plot_combined()
