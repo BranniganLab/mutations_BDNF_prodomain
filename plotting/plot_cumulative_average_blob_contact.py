@@ -105,20 +105,20 @@ def fig_gen():
     ax.plot(time_in_ns, cumulative_frequency, color="black", linewidth=2)
     ax.set_ylim(0, 1.1)
 
-    ax.set_xlabel("Time (ns)", fontsize=20)
-    ax.set_ylabel("Variant-Mediator contacts", fontsize=20)
+    ax.set_xlabel(r"t (ns)", fontsize=20)
+    ax.set_ylabel(r"$f_{v\mathrm{-}m}(t)$", fontsize=20)
     ax.tick_params(axis='both', labelsize=18)
 
     blob_name_i = id_to_name[blob_i]
     blob_name_j = id_to_name[blob_j]
-    output_filename = (f"cumulative_avg_{blob_name_i}_{blob_name_j}_seq_{sequence}_H65.pdf")
+    output_filename = (f"cumulative_avg_{blob_name_i}_{blob_name_j}_seq_{sequence}.pdf")
 
     plt.savefig(f"{output_path}/{output_filename}",bbox_inches="tight")
     plt.close()
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Plot cumulative average contact frequency.")
+    parser = argparse.ArgumentParser(description="Plot cumulative frequency contacts between the Variant and Mediator blobs.")
     
     parser.add_argument("--input_path", required=True, help="Path to the input data.") 
     parser.add_argument("--output_path", required=True, help="Path to the output data.")

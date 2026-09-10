@@ -66,10 +66,11 @@ def plot_rg_line_graph():
     ax.legend(markerscale=10, fontsize=15, title_fontsize=15, loc='upper right')
 
     ax.set_ylabel(r'$R_{g}$ (Å)', fontsize=20)
-    ax.set_xlabel('Time (ns)', fontsize=20)
+    ax.set_xlabel(r"t (ns)", fontsize=20)
 
-    ax.set_ylim(12.1, 29.7)
-    ax.set_xlim(0, 2080)
+    # ax.set_ylim(12.1, 29.7)
+    ax.set_ylim(16, 22)
+    ax.set_xlim(0, 2240)
 
     ax.tick_params(axis='both', labelsize=18)
 

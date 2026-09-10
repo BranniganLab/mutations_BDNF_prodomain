@@ -6,6 +6,7 @@ cd "$SCRIPT_DIR"
 
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
+TRAJ_DIR="$ROOT_DIR/trajectories/raw"
 INPUT_DIR="$ROOT_DIR/data11"
 FIGURE_DIR="$ROOT_DIR/figures11"
 
@@ -134,11 +135,27 @@ mkdir -p "$FIGURE_DIR"
 # 	--input_path "$INPUT_DIR" \
 # 	--output_path "$FIGURE_DIR" 	
 
-# Plot backbone contacts for V-M M-N contact state
-python3 plot_one_fig_range_residue_contacts.py \
-	--state VM_NC \
-	--x-range 105 111 \
-	--y-range 31 38 \
-	--res_type "bb" \
+# Plot secondary structure for V-M M-N contact state
+python3 calc_secondary_structure.py \
+	--raw_traj_path "$TRAJ_DIR" \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"		
+	--output_path "$FIGURE_DIR" \
+	--state VM_NC
+
+# # Plot backbone contacts for V-M M-N contact state
+# python3 plot_one_fig_range_residue_contacts.py \
+# 	--state VM_NC \
+# 	--x-range 93 97 \
+# 	--y-range 65 72 \
+# 	--res_type "bb" \
+# 	--input_path "$INPUT_DIR" \
+# 	--output_path "$FIGURE_DIR"		
+
+# # Plot backbone contacts for V-M M-N contact state
+# python3 plot_one_fig_range_residue_contacts.py \
+# 	--state VM_NC \
+# 	--x-range 105 111 \
+# 	--y-range 31 38 \
+# 	--res_type "bb" \
+# 	--input_path "$INPUT_DIR" \
+# 	--output_path "$FIGURE_DIR"	
