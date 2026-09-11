@@ -7,133 +7,133 @@ cd "$SCRIPT_DIR"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 TRAJ_DIR="$ROOT_DIR/trajectories/raw"
-INPUT_DIR="$ROOT_DIR/data11"
-FIGURE_DIR="$ROOT_DIR/figures11"
+INPUT_DIR="$ROOT_DIR/data"
+FIGURE_DIR="$ROOT_DIR/figures"
 
 mkdir -p "$FIGURE_DIR"
 
-# # Plots the radius of gyration over time for each sequence  
-# python3 plot_rg_over_time.py \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR" 			
+# Plots the radius of gyration over time for each sequence  
+python3 plot_rg_over_time.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR" 			
 
-# # Plots the cumulatiave average of Variant-Mediator contacts for the M66 sequence  
-# python3 plot_cumulative_average_blob_contact.py \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR" 
+# Plots the cumulatiave average of Variant-Mediator contacts for the M66 sequence  
+python3 plot_cumulative_average_blob_contact.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR" 
 
-# # Plots the average radius of gyration for each sequence on a bar plot  
-# python3 plot_avg_rg.py \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR" 							
+# Plots the average radius of gyration for each sequence on a bar plot  
+python3 plot_avg_rg.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR" 							
 
-# # Simulates the SAHP and plots the blob-blob contacts ---FIX---
-# python3 SAHP_polymer.py \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Simulates the SAHP and plots the blob-blob contacts ---FIX---
+python3 SAHP_polymer.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plots the differences of blob-blob contacts for A66 versus the SAHP  
-# python3 protein_vs_SAHP.py \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR" 						
+# Plots the differences of blob-blob contacts for A66 versus the SAHP  
+python3 protein_vs_SAHP.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR" 						
 
-# # Plots the differences of blob-blob contacts for all sequences versus A66  
-# python3 plot_blob_contacts_vs_A66.py \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR" 			
+# Plots the differences of blob-blob contacts for all sequences versus A66  
+python3 plot_blob_contacts_vs_A66.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR" 			
 
-# # Plots radius of gyration vs Ree and N-C contacts  
-# python3 plot_rg_vs_termini_correlation.py \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR" 		
+# Plots radius of gyration vs Ree and N-C contacts  
+python3 plot_rg_vs_termini_correlation.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR" 		
 
-# # Plot the frequencies of contact states: V-N -> N-C
-# python3 plot_state_freq.py \
-# 	--association 8_2_to_2_16 \
-# 	--bar_plot_color darkblue \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot the frequencies of contact states: V-N -> N-C
+python3 plot_state_freq.py \
+	--association 8_2_to_2_16 \
+	--bar_plot_color darkblue \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot the frequencies of contact states: V-C -> N-C
-# python3 plot_state_freq.py \
-# 	--association 8_16_to_2_16 \
-# 	--bar_plot_color maroon \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot the frequencies of contact states: V-C -> N-C
+python3 plot_state_freq.py \
+	--association 8_16_to_2_16 \
+	--bar_plot_color maroon \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot the frequencies of contact states: V-M -> M-N
-# python3 plot_state_freq.py \
-# 	--association 8_12_to_12_2 \
-# 	--bar_plot_color darkgreen \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot the frequencies of contact states: V-M -> M-N
+python3 plot_state_freq.py \
+	--association 8_12_to_12_2 \
+	--bar_plot_color darkgreen \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot the frequencies of contact states: M-N -> N-C
-# python3 plot_state_freq.py \
-# 	--association 12_2_to_2_16 \
-# 	--bar_plot_color indigo \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot the frequencies of contact states: M-N -> N-C
+python3 plot_state_freq.py \
+	--association 12_2_to_2_16 \
+	--bar_plot_color indigo \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot the frequencies of contact states: V-M -> M-C
-# python3 plot_state_freq.py \
-# 	--association 8_12_to_12_16 \
-# 	--bar_plot_color palevioletred \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot the frequencies of contact states: V-M -> M-C
+python3 plot_state_freq.py \
+	--association 8_12_to_12_16 \
+	--bar_plot_color palevioletred \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot odds ratios: V-N -> N-C
-# python3 plot_odds_ratios.py \
-# 	--association 8_2_to_2_16 \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot odds ratios: V-N -> N-C
+python3 plot_odds_ratios.py \
+	--association 8_2_to_2_16 \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot odds ratios: V-C -> N-C
-# python3 plot_odds_ratios.py \
-# 	--association 8_16_to_2_16 \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot odds ratios: V-C -> N-C
+python3 plot_odds_ratios.py \
+	--association 8_16_to_2_16 \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot odds ratios: V-M -> M-N
-# python3 plot_odds_ratios.py \
-# 	--association 8_12_to_12_2 \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot odds ratios: V-M -> M-N
+python3 plot_odds_ratios.py \
+	--association 8_12_to_12_2 \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot odds ratios: M-N -> N-C
-# python3 plot_odds_ratios.py \
-# 	--association 12_2_to_2_16 \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot odds ratios: M-N -> N-C
+python3 plot_odds_ratios.py \
+	--association 12_2_to_2_16 \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot odds ratios: V-M -> M-C
-# python3 plot_odds_ratios.py \
-# 	--association 8_12_to_12_16 \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot odds ratios: V-M -> M-C
+python3 plot_odds_ratios.py \
+	--association 8_12_to_12_16 \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot side-chain contacts for V-M M-N contact state
-# python3 plot_one_fig_range_residue_contacts.py \
-# 	--state VM_MN \
-# 	--x-range 93 97 \
-# 	--y-range 31 38 \
-# 	--res_type "sc" \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot side-chain contacts for V-M M-N contact state
+python3 plot_one_fig_range_residue_contacts.py \
+	--state VM_MN \
+	--x-range 93 97 \
+	--y-range 31 38 \
+	--res_type "sc" \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot side-chain contacts for M-N N-C contact state
-# python3 plot_one_fig_range_residue_contacts.py \
-# 	--state MN_NC \
-# 	--x-range 105 111 \
-# 	--y-range 31 38 \
-# 	--res_type "sc" \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"
+# Plot side-chain contacts for M-N N-C contact state
+python3 plot_one_fig_range_residue_contacts.py \
+	--state MN_NC \
+	--x-range 105 111 \
+	--y-range 31 38 \
+	--res_type "sc" \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"
 
-# # Plot blob-blob contacts  
-# python3 plot_blob_contacts_one_fig.py \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR" 	
+# Plot blob-blob contacts  
+python3 plot_blob_contacts_one_fig.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR" 	
 
 # Plot secondary structure for V-M M-N contact state
 python3 calc_secondary_structure.py \
@@ -142,20 +142,20 @@ python3 calc_secondary_structure.py \
 	--output_path "$FIGURE_DIR" \
 	--state VM_NC
 
-# # Plot backbone contacts for V-M M-N contact state
-# python3 plot_one_fig_range_residue_contacts.py \
-# 	--state VM_NC \
-# 	--x-range 93 97 \
-# 	--y-range 65 72 \
-# 	--res_type "bb" \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"		
+# Plot backbone contacts for V-M M-N contact state
+python3 plot_one_fig_range_residue_contacts.py \
+	--state VM_NC \
+	--x-range 93 97 \
+	--y-range 65 72 \
+	--res_type "bb" \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"		
 
-# # Plot backbone contacts for V-M M-N contact state
-# python3 plot_one_fig_range_residue_contacts.py \
-# 	--state VM_NC \
-# 	--x-range 105 111 \
-# 	--y-range 31 38 \
-# 	--res_type "bb" \
-# 	--input_path "$INPUT_DIR" \
-# 	--output_path "$FIGURE_DIR"	
+# Plot backbone contacts for V-M M-N contact state
+python3 plot_one_fig_range_residue_contacts.py \
+	--state VM_NC \
+	--x-range 105 111 \
+	--y-range 31 38 \
+	--res_type "bb" \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"	
