@@ -13,3 +13,6 @@ __pycache__
 .DS_Store
 trajectories.zip
 .Rhistory
+*.zip
+data
+figures
