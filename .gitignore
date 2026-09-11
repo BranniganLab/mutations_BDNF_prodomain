@@ -12,3 +12,4 @@ blobulator
 __pycache__
 .DS_Store
 trajectories.zip
+.Rhistory
