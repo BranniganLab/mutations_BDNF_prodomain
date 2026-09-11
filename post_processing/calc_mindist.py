@@ -29,7 +29,7 @@ def write_periodic_image_frames_to_list():
             List of time frames that contain periodic images which should be deleted.
     """
 
-    mindist_file = pd.read_csv(f"{output_data_path}/{seq}_mindist.xvg", sep=r"\s+", index_col=False, names=['time_frame', 'mindist'], engine='python', usecols=[0,2]) #load 0th and 2nd column of mindist.xvg
+    mindist_file = pd.read_csv(f"{output_data_path}/{seq}_mindist.xvg", sep="\t\t|\t+|\s+", index_col=False, names=['time_frame', 'mindist'], engine='python', usecols=[0,2]) #load 0th and 2nd column of mindist.xvg
     list_of_time_frames_to_delete =[]
 
     for mindist_value, time_frame in zip(mindist_file['mindist'], mindist_file['time_frame']):
