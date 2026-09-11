@@ -7,8 +7,8 @@ cd "$SCRIPT_DIR"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
 TRAJ_DIR="$ROOT_DIR/trajectories"
-PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed11"
-DATA_DIR="$ROOT_DIR/data11"
+PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed"
+DATA_DIR="$ROOT_DIR/data"
 BLOBULATOR_DIR="${BLOBULATOR_DIR:-$ROOT_DIR/../blobulator}"
 BLOB_GUI_DIR="$BLOBULATOR_DIR/VMD_scripts"
 
