@@ -30,6 +30,25 @@ conda env create -f environment.yml
 conda activate mutations-bdnf-prodomain
 ```
 
+## Repository organization
+
+```text
+analysis/
+    VMD and Tcl analysis scripts
+
+plotting/
+    Python scripts for generating figures
+
+post_processing/
+    Trajectory processing and minimum-distance calculations
+
+environment.yml
+    Conda environment specification
+
+generate_figs.sh
+    Main script that runs the trajectory processing, analysis, and plotting
+```
+
 ## Blobulator dependency
 
 The Blobulator is maintained in a separate repository and is required for the analysis workflow.
@@ -61,24 +80,7 @@ If the Blobulator repository is located elsewhere, set its path before running t
 export BLOBULATOR_DIR="/path/to/blobulator"
 ```
 
-## Repository organization
 
-```text
-analysis/
-    VMD and Tcl analysis scripts
-
-plotting/
-    Python scripts for generating figures
-
-post_processing/
-    Trajectory processing and minimum-distance calculations
-
-environment.yml
-    Conda environment specification
-
-generate_figs.sh
-    Main script that runs the trajectory processing, analysis, and plotting
-```
 
 ## Workflow
 
