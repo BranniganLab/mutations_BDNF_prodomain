@@ -17,6 +17,9 @@ dependencies:
   # Required by post_processing/process_trajectory.sh and the Python helpers.
   - gromacs>=2023,<2027
 
+  - zenodo_get
+
+
   # VMD is not included because it is distributed separately under its own
   # license. Install VMD and make sure the `vmd` executable is on PATH before
   # running post_processing/process_trajectory.sh or analysis/run_analysis.sh.
