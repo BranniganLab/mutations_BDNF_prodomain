@@ -74,7 +74,7 @@ The analysis scripts expect the blobulation script for VMD to be located at:
 blobulator/VMD_scripts/
 ```
 
-### 2. Generate figures
+### 3. Generate figures
 
 Generate the figures for the paper:
 
