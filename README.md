@@ -14,9 +14,9 @@ Note: VMD and GROMACS must be installed separately and should be available from 
 
 The Python dependencies are listed in [`environment.yml`](environment.yml).
 
-## Installation
+## Workflow
 
-Clone this repository:
+### 1. Clone this repository
 
 ```bash
 git clone git@github.com:BranniganLab/mutations_BDNF_prodomain.git
@@ -49,7 +49,7 @@ generate_figs.sh
     Main script that runs the trajectory processing, analysis, and plotting
 ```
 
-## Blobulator dependency
+### 2. Clone the Blobulator repository
 
 The Blobulator is maintained in a separate repository and is required for the analysis workflow.
 
@@ -74,29 +74,16 @@ The analysis scripts expect the blobulation script for VMD to be located at:
 blobulator/VMD_scripts/
 ```
 
-If the Blobulator repository is located elsewhere, set its path before running the analysis:
-
-```bash
-export BLOBULATOR_DIR="/path/to/blobulator"
-```
-
-
-
-## Workflow
-
-### 1. Download trajectories
-
-Download the trajectory files from [this Zenodo](https://zenodo.org/records/22710682) and place the trajectory folder into the mutations_BDNF_prodomain folder.
-
 ### 2. Generate figures
 
-From the mutations_BDNF_prodomain directory, run:
+Generate the figures for the paper:
 
 ```bash
+cd mutations_BDNF_prodomain/
 ./generate_figs.sh
 ```
 
-First process_trajectory.sh is called, which performs trajectory preprocessing, periodic-boundary handling, minimum-distance analysis, PIF filtering, and equilibration-frame removal. The processed trajectories are placed in a folder called "post_processed" in the trajectories directory.
+First process_trajectory.sh is called, which performs trajectory preprocessing, periodic-boundary handling, minimum-distance analysis, periodic image frame filtering, and equilibration-frame removal. The processed trajectories are placed in a folder called "post_processed" in the trajectories directory.
 
 Then, run_analysis.sh is called, which performs the VMD/Tcl calculations, including:
 - Radius of gyration
