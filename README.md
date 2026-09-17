@@ -1,6 +1,6 @@
 # Mutations of the BDNF prodomain
 
-This repository contains scripts for trajectory post-processing, analysis, and plotting scripts for the figures in the BDNF prodomain paper. Raw trajectory files can be found in [this Zenodo](link).
+This repository contains scripts for trajectory post-processing, analysis, and plotting scripts for the figures in the BDNF prodomain paper. Raw trajectory files can be found in [this Zenodo](https://zenodo.org/records/22710682).
 
 ## Requirements
 
