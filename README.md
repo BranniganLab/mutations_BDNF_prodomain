@@ -1,13 +1,13 @@
 # Mutations of the BDNF prodomain
 
-This repository contains scripts for trajectory post-processing, analysis, and plotting scripts for the figures in the BDNF prodomain paper. Raw trajectory files can be found in [this Zenodo](link) repository.
+This repository contains scripts for trajectory post-processing, analysis, and plotting scripts for the figures in the BDNF prodomain paper. Raw trajectory files can be found in [this Zenodo](link).
 
 ## Requirements
 
 - VMD
 - GROMACS
 - Python 3.11
-- Blobulation
+- Blobulator v1.1.0
 - Conda or Miniconda
 
 Note: VMD and GROMACS must be installed separately and should be available from the command line.
@@ -21,13 +21,6 @@ The Python dependencies are listed in [`environment.yml`](environment.yml).
 ```bash
 git clone git@github.com:BranniganLab/mutations_BDNF_prodomain.git
 cd mutations_BDNF_prodomain
-```
-
-Create and activate the Conda environment:
-
-```bash
-conda env create -f environment.yml
-conda activate mutations-bdnf-prodomain
 ```
 
 ## Repository organization
@@ -49,15 +42,20 @@ generate_figs.sh
     Main script that runs the trajectory processing, analysis, and plotting
 ```
 
-### 2. Clone the Blobulator repository
+### 2. Create and activate the Conda environment
 
-The Blobulator is maintained in a separate repository and is required for the analysis workflow.
+```bash
+conda env create -f environment.yml
+conda activate mutations-bdnf-prodomain
+```
 
-Clone the [Blobulator](https://github.com/BranniganLab/blobulator) repository separately:
+### 3. Clone the Blobulator repository
+
+The Blobulator is maintained in a separate repository and is required for the analysis workflow. This workflow uses Blobulator v1.1.0. Clone the [Blobulator](https://github.com/BranniganLab/blobulator) repository separately:
 
 ```bash
 cd ..
-git clone git@github.com:BranniganLab/blobulator.git
+git clone --branch v1.1.0 --single-branch git@github.com:BranniganLab/blobulator.git blobulator-v1.1.0
 ```
 
 The recommended directory structure is:
@@ -65,16 +63,16 @@ The recommended directory structure is:
 ```text
 GitHub/
 ├── mutations_BDNF_prodomain/
-└── blobulator/
+└── blobulator-v1.1.0/
 ```
 
 The analysis scripts expect the blobulation script for VMD to be located at:
 
 ```text
-blobulator/VMD_scripts/
+blobulator-v1.1.0/VMD_scripts/
 ```
 
-### 3. Generate figures
+### 4. Generate figures
 
 Generate the figures for the paper:
 
@@ -83,7 +81,9 @@ cd mutations_BDNF_prodomain/
 ./generate_figs.sh
 ```
 
-First process_trajectory.sh is called, which performs trajectory preprocessing, periodic-boundary handling, minimum-distance analysis, periodic image frame filtering, and equilibration-frame removal. The processed trajectories are placed in a folder called "post_processed" in the trajectories directory.
+Note: This will directly download the raw trajectories from Zenodo.
+
+Once the trajectories are downloaded and unzipped, process_trajectory.sh is called, which performs trajectory preprocessing, periodic-boundary handling, minimum-distance analysis, periodic image frame filtering, and equilibration-frame removal. The processed trajectories are placed in a folder called "post_processed" in the trajectories directory.
 
 Then, run_analysis.sh is called, which performs the VMD/Tcl calculations, including:
 - Radius of gyration
