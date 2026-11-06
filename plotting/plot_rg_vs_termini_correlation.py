@@ -99,38 +99,38 @@ def plot_rg_vs_ree(ax):
     ax.xaxis.set_major_locator(MultipleLocator(1))
     ax.set_xlabel(r'$\langle R_{ee} \rangle$ (Å)', fontsize=20)
 
-def plot_rg_vs_n_c_contacts(ax):
-    """
-    Plot average Rg versus frequency of states with termini contacts.
+# def plot_rg_vs_n_c_contacts(ax):
+#     """
+#     Plot average Rg versus frequency of states with termini contacts.
         
-    Arguments
-        ax : matplotlib.axes._subplots.AxesSubplot
-            The axes on which to plot the data.
+#     Arguments
+#         ax : matplotlib.axes._subplots.AxesSubplot
+#             The axes on which to plot the data.
 
-    Returns
-        None
-    """
-    rg_values = []
-    termini_values = []
+#     Returns
+#         None
+#     """
+#     rg_values = []
+#     termini_values = []
 
-    for sequence in sequences:
-        rg = read_data(sequence, 'rg')
-        sem_rg = do_stats(rg)
-        avg_rg = average_data(read_data(sequence, 'rg'))
-        contact_frequency = (average_data(read_data(sequence, 'single_pair_blob_contact_2_16'))) * 100
+#     for sequence in sequences:
+#         rg = read_data(sequence, 'rg')
+#         sem_rg = do_stats(rg)
+#         avg_rg = average_data(read_data(sequence, 'rg'))
+#         contact_frequency = (average_data(read_data(sequence, 'single_pair_blob_contact_2_16'))) * 100
         
-        ax.scatter(contact_frequency, avg_rg, s=50, color='black')
-        ax.errorbar(contact_frequency, avg_rg, yerr=sem_rg, capsize=3, elinewidth=1, color='black')
-        ax.annotate(sequence, (contact_frequency, avg_rg), textcoords="offset points", xytext=(0, 28), ha="center", fontsize=17)
+#         ax.scatter(contact_frequency, avg_rg, s=50, color='black')
+#         ax.errorbar(contact_frequency, avg_rg, yerr=sem_rg, capsize=3, elinewidth=1, color='black')
+#         ax.annotate(sequence, (contact_frequency, avg_rg), textcoords="offset points", xytext=(0, 28), ha="center", fontsize=17)
 
-        rg_values.append(avg_rg)
-        termini_values.append(contact_frequency)
+#         rg_values.append(avg_rg)
+#         termini_values.append(contact_frequency)
 
-    r, p = stats.pearsonr(termini_values, rg_values)
+#     r, p = stats.pearsonr(termini_values, rg_values)
 
-    ax.set_xlabel(r'$n$-$c$ contact frequency (%)',fontsize=20)
-    ax.set_xlim(26, 52)
-    ax.xaxis.set_major_locator(MultipleLocator(3))
+#     ax.set_xlabel(r'$n$-$c$ contact frequency (%)',fontsize=20)
+#     ax.set_xlim(26, 52)
+#     ax.xaxis.set_major_locator(MultipleLocator(3))
 
 def plot_ree_vs_n_c_contacts(ax):
     """
@@ -177,32 +177,32 @@ def plot_multipanel():
     Returns
         None
     """
-    fig, axes = plt.subplots(2,2,figsize=(16, 12),sharey='row')
+    fig, axes = plt.subplots(1,2,figsize=(15, 6))
 
     # Left panel
-    plot_rg_vs_ree(axes[0, 0])
+    plot_rg_vs_ree(axes[0])
 
     # Right panel
-    plot_rg_vs_n_c_contacts(axes[0, 1])
+    # plot_rg_vs_n_c_contacts(axes[0, 1])
 
-    # Bottom right panel
-    plot_ree_vs_n_c_contacts(axes[1, 0])
+    # Right panel
+    plot_ree_vs_n_c_contacts(axes[1])
 
-    axes[0, 0].set_ylabel(r'$\langle R_{g} \rangle$ (Å)', fontsize=20)
-    axes[0, 0].set_ylim(17.7, 19.4)
-    axes[0, 0].tick_params(axis='both', labelsize=18)
-    axes[0, 0].yaxis.set_major_locator(MultipleLocator(0.2))
+    axes[0].set_ylabel(r'$\langle R_{g} \rangle$ (Å)', fontsize=20)
+    axes[0].set_ylim(17.7, 19.4)
+    axes[0].tick_params(axis='both', labelsize=18)
+    axes[0].yaxis.set_major_locator(MultipleLocator(0.2))
 
-    axes[0, 1].tick_params(axis='both', labelsize=18)
+    # axes.tick_params(axis='both', labelsize=18)
 
-    axes[1, 0].set_ylabel(r'$\langle R_{ee} \rangle$ (Å)', fontsize=20)
-    axes[1, 0].set_ylim(30, 42)
-    axes[1, 0].tick_params(axis='both', labelsize=18)
+    axes[1].set_ylabel(r'$\langle R_{ee} \rangle$ (Å)', fontsize=20)
+    axes[1].set_ylim(30, 42)
+    axes[1].tick_params(axis='both', labelsize=18)
 
-    axes[1, 1].axis('off')  # Hide the bottom right panel
+    # axes[1, 1].axis('off')  # Hide the bottom right panel
 
-    fig.subplots_adjust(wspace=0.08)
-    plt.savefig(f"{output_path}/rg_ree_n_c_contact_correlations.pdf",bbox_inches='tight')
+    fig.subplots_adjust(wspace=0.17)
+    plt.savefig(f"{output_path}/global_property_correlations.pdf",bbox_inches='tight')
     plt.close()
 
 if __name__ == '__main__':
