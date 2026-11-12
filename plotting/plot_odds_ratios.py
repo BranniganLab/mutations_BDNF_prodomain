@@ -230,7 +230,8 @@ def plot_OR():
     plt.ylim(0,6.5)
 
     plt.tight_layout()
-    plt.savefig(f"{output_path}/{association}_odds_ratios.pdf")
+
+    plt.savefig(f"{output_path}/{association_name}_odds_ratios.pdf")
     plt.close()
 
 if __name__ == "__main__":
@@ -240,6 +241,10 @@ if __name__ == "__main__":
     parser.add_argument("--association", required=True, help="Odds ratio association.")
     parser.add_argument("--input_path", required=True, help="Path to the input data.") 
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
+    parser.add_argument("--variant_blob_index", required=True, type=int)
+    parser.add_argument("--mediator_blob_index", required=True, type=int)
+    parser.add_argument("--N_blob_index", required=True, type=int)
+    parser.add_argument("--C_blob_index", required=True, type=int)
     parser.add_argument("--n_independent_samples", required=False, default=1088, help="Number of samples (1088).")
     parser.add_argument("--sequences", required=False, default="F66 M66 V66 L66 A66 Y66 I66", help="Sequence names.")
 
@@ -248,14 +253,24 @@ if __name__ == "__main__":
     association = args.association
     input_path = args.input_path
     output_path = args.output_path
+    variant_blob_index = args.variant_blob_index
+    mediator_blob_index = args.mediator_blob_index
+    N_blob_index = args.N_blob_index
+    C_blob_index = args.C_blob_index
     n_independent_samples = int(args.n_independent_samples)
     sequences = args.sequences.split()
 
     blob_id_to_blob_name = {
-        8:  "v",
-        12: "m",
-        2:  "n",
-        16: "c",
+        args.variant_blob_index: "v",
+        args.mediator_blob_index: "m",
+        args.N_blob_index: "n",
+        args.C_blob_index: "c",
     }
+
+    association_name = "_".join(
+        blob_id_to_blob_name[int(blob_id)]
+        if blob_id != "to" else "to"
+        for blob_id in args.association.split("_")
+    )
 
     plot_OR()
