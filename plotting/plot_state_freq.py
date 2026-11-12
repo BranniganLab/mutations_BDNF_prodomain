@@ -7,6 +7,10 @@ import argparse
 
 """
 This script plots the contact state frequencies for all sequences on a stacked bar chart.
+state_a = contact A and contact B are present
+state_b = contact A is absent and contact B is present
+state_c = contact A is present and contact B is absent
+state_d = contact A is absent and contact B is absent
 """
 
 def read_data_file(sequence): 
@@ -129,6 +133,10 @@ if __name__ == "__main__":
     parser.add_argument("--bar_plot_color", required=True, help="Color of the bar plot.")
     parser.add_argument("--input_path", required=True, help="Path to the input data.") 
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
+    parser.add_argument("--variant_blob_index", required=True, type=int)
+    parser.add_argument("--mediator_blob_index", required=True, type=int)
+    parser.add_argument("--N_blob_index", required=True, type=int)
+    parser.add_argument("--C_blob_index", required=True, type=int)
     parser.add_argument("--sequences", required=False, default="F66 M66 V66 L66 A66 Y66 I66", help="Sequence names.")
     parser.add_argument("--n_independent_samples", required=False, default=1088, help="Number of samples (1088).")
 
@@ -138,9 +146,26 @@ if __name__ == "__main__":
     color = args.bar_plot_color
     input_path = args.input_path
     output_path = args.output_path
+    variant_blob_index = args.variant_blob_index
+    mediator_blob_index = args.mediator_blob_index
+    N_blob_index = args.N_blob_index
+    C_blob_index = args.C_blob_index
     sequences = args.sequences.split()
     n_independent_samples = int(args.n_independent_samples)
+
+    blob_id_to_blob_name = {
+        args.variant_blob_index: "v",
+        args.mediator_blob_index: "m",
+        args.N_blob_index: "n",
+        args.C_blob_index: "c",
+    }
+
+    association_name = "_".join(
+        blob_id_to_blob_name[int(blob_id)]
+        if blob_id != "to" else "to"
+        for blob_id in args.association.split("_")
+    )
     
-    output_file_name = f"state_freq_{association}"
+    output_file_name = f"state_freq_{association_name}"
 
     plot_state_freq()
