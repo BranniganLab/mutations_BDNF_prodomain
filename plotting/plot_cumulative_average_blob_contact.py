@@ -109,9 +109,7 @@ def fig_gen():
     ax.set_ylabel(r"$f_{v\mathrm{-}m}(t)$", fontsize=20)
     ax.tick_params(axis='both', labelsize=18)
 
-    blob_name_i = id_to_name[blob_i]
-    blob_name_j = id_to_name[blob_j]
-    output_filename = (f"cumulative_avg_{blob_name_i}_{blob_name_j}_seq_{sequence}.pdf")
+    output_filename = (f"cumulative_avg_v_m_contact_seq_{sequence}.pdf")
 
     plt.savefig(f"{output_path}/{output_filename}",bbox_inches="tight")
     plt.close()
@@ -122,8 +120,8 @@ if __name__ == "__main__":
     
     parser.add_argument("--input_path", required=True, help="Path to the input data.") 
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
-    parser.add_argument("--blob_i", required=False, default=5, help="Index of the first blob.")
-    parser.add_argument("--blob_j", required=False, default=8, help="Index of the second blob.")
+    parser.add_argument("--variant_blob_index_no_s_blobs", required=True, type=int)
+    parser.add_argument("--mediator_blob_index_no_s_blobs", required=True, type=int)
     parser.add_argument("--sequence", required=False, default="M66", help="Sequence name.")
     parser.add_argument("--cutoff_distance", required=False, default=0.55, help="Cutoff distance.")
     parser.add_argument("--ps_per_frame", required=False, default=100, help="Time step in picoseconds.")
@@ -132,26 +130,12 @@ if __name__ == "__main__":
 
     input_path = args.input_path
     output_path = args.output_path
-    blob_i = int(args.blob_i)
-    blob_j = int(args.blob_j)
+    blob_i = int(args.variant_blob_index_no_s_blobs)
+    blob_j = int(args.mediator_blob_index_no_s_blobs)
     sequence = args.sequence
     cutoff_distance = float(args.cutoff_distance)
     ps_per_frame = float(args.ps_per_frame)
 
-    id_to_name = {
-        0: "p1",
-        1: "h1a",
-        2: "h1b",
-        3: "p2",
-        4: "h2a",
-        5: "h2b",
-        6: "p3",
-        7: "h3a",
-        8: "h3b",
-        9: "h3c",
-        10: "h3d",
-    }
-    
     fig_gen()
 
 
