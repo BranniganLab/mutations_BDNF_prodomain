@@ -66,6 +66,65 @@ def do_stats(data):
     
     return float(sem)
 
+
+def bootstrap_pearson_ci(x, y, n_bootstrap=10000, confidence=0.95, seed=42):
+    """
+    Calculate a bootstrap confidence interval for Pearson's correlation.
+
+    Parameters
+    ----------
+    x, y : array-like
+        Paired observations.
+    n_bootstrap : int
+        Number of bootstrap resamples.
+    confidence : float
+        Confidence level (default 95%).
+    seed : int
+        Random seed for reproducibility.
+
+    Returns
+    -------
+    r : float
+        Observed Pearson correlation coefficient.
+    ci_lower, ci_upper : float
+        Lower and upper confidence interval bounds.
+    """
+
+    x = np.asarray(x)
+    y = np.asarray(y)
+
+    rng = np.random.default_rng(seed)
+
+    r = stats.pearsonr(x, y).statistic
+
+    bootstrap_r = []
+
+    for _ in range(n_bootstrap):
+
+        indices = rng.choice(len(x), size=len(x), replace=True)
+
+        x_boot = x[indices]
+        y_boot = y[indices]
+
+        # Skip resamples with no variation
+        if np.std(x_boot) == 0 or np.std(y_boot) == 0:
+            continue
+
+        r_boot = stats.pearsonr(x_boot, y_boot).statistic
+
+        bootstrap_r.append(r_boot)
+
+    alpha = 1 - confidence
+
+    ci_lower, ci_upper = np.percentile(
+        bootstrap_r,
+        [100 * alpha / 2, 100 * (1 - alpha / 2)]
+    )
+
+    return r, ci_lower, ci_upper
+
+
+
 def plot_rg_vs_ree(ax):
     """
     Plot average Rg versus average Ree.
@@ -150,7 +209,7 @@ def plot_ree_vs_n_c_contacts(ax):
         ree = read_data(sequence, 'ree')
         sem_ree = do_stats(ree)
         avg_ree = average_data(read_data(sequence, 'ree'))
-        n_c_contact_frequency = (average_data(read_data(sequence, 'single_pair_blob_contact_2_16'))) * 100
+        n_c_contact_frequency = (average_data(read_data(sequence, f'single_pair_blob_contact_{N_blob_index}_{C_blob_index}'))) * 100
         
         ax.scatter(n_c_contact_frequency, avg_ree, s=50, color='black')
         ax.errorbar(n_c_contact_frequency, avg_ree, yerr=sem_ree, capsize=3, elinewidth=1, color='black')
@@ -213,13 +272,17 @@ if __name__ == '__main__':
     parser.add_argument("--output_path", required=True, help="Path to the output data.")
     parser.add_argument("--n_independent_samples", required=False, default=1088, help="Number of samples (1088).")
     parser.add_argument("--sequences", required=False, default="V66 M66 F66 A66 Y66 L66 I66", help="Sequence names.")
-
+    parser.add_argument("--N_blob_index", required=False, default=2, help="Index of the N-terminal blob depending on blobulation settings.")
+    parser.add_argument("--C_blob_index", required=False, default=14, help="Index of the C-terminal blob depending on blobulation settings.")
+    
     args = parser.parse_args()
 
     input_path = args.input_path
     output_path = args.output_path
     n_independent_samples = int(args.n_independent_samples)
     sequences = args.sequences.split()
+    N_blob_index = int(args.N_blob_index)
+    C_blob_index = int(args.C_blob_index)
 
     plot_multipanel()       
 
