@@ -19,6 +19,12 @@ proc calcAllBlobRg {output_dir traj_without_equilibration_base} {
     set list_of_blobs [lsort -unique [$sel get user2]]
     $sel delete
 
+    # Remove blob 0.0 (entire protein)
+    set idx [lsearch -exact $list_of_blobs 0.0]
+    if {$idx != -1} {
+        set list_of_blobs [lreplace $list_of_blobs $idx $idx]
+    }
+
     # Initialize a list for blob residue ranges
     set list_of_blob_resid_ranges {}
 
