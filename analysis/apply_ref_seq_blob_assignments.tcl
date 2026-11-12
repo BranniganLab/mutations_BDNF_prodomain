@@ -29,11 +29,13 @@ proc apply_ref_seq_blob_assignments {output_dir Lmin H_star} {
         # Check that the residue matches the reference sequence
         set current_resname [lindex [lsort -unique [$sel get resname]] 0]
 
-        if {$current_resname eq $resname} {
+        if {[$sel num] > 0} {
             $sel set user $user
             $sel set user2 $user2
-        } else {
-            puts "NOTE: Residue $resid is $current_resname, expected $resname"
+
+            if {$current_resname ne $resname} {
+                puts "NOTE: Residue $resid is $current_resname, reference is $resname. Applied reference blob assignment."
+            }
         }
 
         $sel delete
