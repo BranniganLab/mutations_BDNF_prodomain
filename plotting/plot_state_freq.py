@@ -69,14 +69,14 @@ def plot_state_freq():
 
         # Store frequencies in list
         state_a.append(freqs[0])
-        state_b.append(freqs[1])
-        state_c.append(freqs[2])
+        state_c.append(freqs[1])
+        state_b.append(freqs[2])
         state_d.append(freqs[3])
 
         # Store SEMs in list
         state_a_sem.append(sems[0])
-        state_b_sem.append(sems[1])
-        state_c_sem.append(sems[2])
+        state_c_sem.append(sems[1])
+        state_b_sem.append(sems[2])
         state_d_sem.append(sems[3])
 
         labels.append(sequence)
@@ -86,9 +86,9 @@ def plot_state_freq():
 
     bottom = np.zeros(len(labels))
 
-    state_data = [state_a, state_b, state_c, state_d]
-    state_sems = [state_a_sem, state_b_sem, state_c_sem, state_d_sem]
-    state_names = ["A", "B", "C", "D"]
+    state_data = [state_a, state_c, state_b, state_d]
+    state_sems = [state_a_sem, state_c_sem, state_b_sem, state_d_sem]
+    state_names = ["A", "C", "B", "D"]
 
     x = np.arange(len(labels))
 
@@ -122,7 +122,7 @@ def plot_state_freq():
     ax.tick_params(axis='y', labelsize=18)
 
     plt.tight_layout()
-    plt.savefig(f"{output_path}/{output_file_name}.pdf", bbox_inches="tight")
+    plt.savefig(f"{output_path}/{output_file_name}2.pdf", bbox_inches="tight")
     plt.close()
 
 if __name__ == "__main__":
