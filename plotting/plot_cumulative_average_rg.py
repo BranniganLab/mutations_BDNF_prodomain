@@ -9,11 +9,12 @@ This script plots the cumulative average Rg over time.
 def read_center_file(sequence):
     """
     Reads a file containing the radius of gyration data for a given sequence.
-    
-    Arguments
-        None
 
-    Returns
+    Arguments:
+        sequence : str
+            The sequence name.
+
+    Returns:
         data : numpy.ndarray
             An array containing the data.
     """
@@ -25,13 +26,14 @@ def read_center_file(sequence):
 def calc_cumulative_rg(sequence):
     """
     Calculates the cumulative average Rg at every frame.
-    
+
     Arguments:
-        None
+        sequence : str
+            The sequence name.
 
     Returns:
-        cumulative_contact_frequency : numpy.ndarray
-            Array of cumulative contact frequencies.
+        cumulative_rg : numpy.ndarray
+            Array of cumulative average Rg values.
     """
 
     rg_data = read_center_file(sequence)
@@ -43,7 +45,7 @@ def calc_cumulative_rg(sequence):
 def fig_gen():
     """
     Generates a scatter plot of the cumulative Rg over time.
-    
+
     Arguments:
         None
 
