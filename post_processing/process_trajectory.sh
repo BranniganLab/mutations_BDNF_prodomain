@@ -6,12 +6,14 @@ cd "$SCRIPT_DIR"
 
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
-TRAJ_DIR="$ROOT_DIR/trajectories/raw"
-PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/post_processed"
-DATA_DIR="$ROOT_DIR/data"
+REPLICA="0" #1, 9
+TRAJ_DIR="$ROOT_DIR/trajectories/replica_$REPLICA/raw"
+PROCESSED_TRAJ_DIR="$ROOT_DIR/trajectories/replica_$REPLICA/post_processed"
+DATA_DIR="$ROOT_DIR/data/replica_$REPLICA"
 
 SEQUENCES="${SEQUENCES:-F66 M66 V66 L66 A66 Y66 I66}"
 EQUILIBRATION_TIME=8000
+MAX_DIST_BETWEEN_PROTEIN_AND_IMAGE=2.0
 
 mkdir -p "$PROCESSED_TRAJ_DIR"
 mkdir -p "$DATA_DIR"
@@ -27,7 +29,8 @@ python3 calc_mindist.py \
   --raw_traj_path "$TRAJ_DIR" \
   --input_traj_path "$PROCESSED_TRAJ_DIR" \
   --output_data_path "$DATA_DIR" \
-  --sequences "$SEQUENCES" 
+  --sequences "$SEQUENCES" \
+  --max_distance "$MAX_DIST_BETWEEN_PROTEIN_AND_IMAGE"
 
 # Remove periodic image frames from trajectory
 for seq in $SEQUENCES; do
