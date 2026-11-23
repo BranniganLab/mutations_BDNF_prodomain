@@ -1,0 +1,2 @@
+- When writing or editing code, update documentation if necessary.
+- When writing or updating documentation, use the same style that is used in other scripts. Be consistent.
