@@ -13,7 +13,7 @@ proc calcReeofBlobs {output_dir traj_without_equilibration_base} {
     set fh [open $outputFile "w"]
 
     # Get the blobs in the sequence
-    set sel [atomselect top "all"]
+    set sel [atomselect top "protein"]
     set user2_vals [$sel get user2]
     set blobs [lsort -unique -real $user2_vals]
     $sel delete
