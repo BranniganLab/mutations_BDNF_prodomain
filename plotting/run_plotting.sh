@@ -6,111 +6,173 @@ cd "$SCRIPT_DIR"
 
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 
-TRAJ_DIR="$ROOT_DIR/trajectories/raw"
-INPUT_DIR="$ROOT_DIR/data"
-FIGURE_DIR="$ROOT_DIR/figures"
+REPLICA="0"
+TRAJ_DIR="$ROOT_DIR/trajectories/replica_$REPLICA/raw"
+INPUT_DIR="$ROOT_DIR/data/replica_$REPLICA"
+FIGURE_DIR="$ROOT_DIR/figures/replica_$REPLICA"
+
+VARIANT_BLOB_INDEX="6" #1 indexed
+MEDIATOR_BLOB_INDEX="8" #1 indexed
+N_BLOB_INDEX="2" #1 indexed
+C_BLOB_INDEX="12" #1 indexed
+VARIANT_BLOB_INDEX_NO_SBLOBS="4" #some plotting scripts consider data that does not include s-blobs, therefore the original blob indices will change and blob indices will start from 0
+MEDIATOR_BLOB_INDEX_NO_SBLOBS="6" #some plotting scripts consider data that does not include s-blobs, therefore the original blob indices will change and blob indices will start from 0
 
 mkdir -p "$FIGURE_DIR"
 
 # Plots the radius of gyration over time for each sequence  
 python3 plot_rg_over_time.py \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR" 			
+	--output_path "$FIGURE_DIR" 	
+
+# Plots the cumulative average radius of gyration over time for all sequences
+python3 plot_cumulative_average_rg.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"  	
+
+# Plots the SEM of Rg vs the block size to determine the effective sample size
+python3 get_effective_sample_size.py \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR" \
 
 # Plots the cumulatiave average of Variant-Mediator contacts for the M66 sequence  
 python3 plot_cumulative_average_blob_contact.py \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR" 
+	--output_path "$FIGURE_DIR" \
+ 	--variant_blob_index_no_s_blobs "$VARIANT_BLOB_INDEX_NO_SBLOBS" \
+ 	--mediator_blob_index_no_s_blobs "$MEDIATOR_BLOB_INDEX_NO_SBLOBS" 
 
 # Plots the average radius of gyration for each sequence on a bar plot  
 python3 plot_avg_rg.py \
 	--input_path "$INPUT_DIR" \
 	--output_path "$FIGURE_DIR" 							
 
-# Simulates the SAHP and plots the blob-blob contacts ---FIX---
-python3 SAHP_polymer.py \
-	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+# # Simulates the SAHP and plots the blob-blob contacts ---FIX---
+# python3 SAHP_polymer.py \
+# 	--input_path "$INPUT_DIR" \
+# 	--output_path "$FIGURE_DIR"
 
-# Plots the differences of blob-blob contacts for A66 versus the SAHP  
-python3 protein_vs_SAHP.py \
-	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR" 						
+# # Plots the differences of blob-blob contacts for A66 versus the SAHP  
+# python3 protein_vs_SAHP.py \
+# 	--input_path "$INPUT_DIR" \
+# 	--output_path "$FIGURE_DIR" 						
 
-# Plots the differences of blob-blob contacts for all sequences versus A66  
-python3 plot_blob_contacts_vs_A66.py \
-	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR" 			
+# # Plots the differences of blob-blob contacts for all sequences versus A66  
+# python3 plot_blob_contacts_vs_A66.py \
+# 	--input_path "$INPUT_DIR" \
+# 	--output_path "$FIGURE_DIR" 			
 
 # Plots radius of gyration vs Ree and N-C contacts  
 python3 plot_rg_vs_termini_correlation.py \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR" 		
+	--output_path "$FIGURE_DIR" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 		
 
 # Plot the frequencies of contact states: V-N -> N-C
 python3 plot_state_freq.py \
-	--association 8_2_to_2_16 \
+	--association "$VARIANT_BLOB_INDEX"_"$N_BLOB_INDEX"_to_"$N_BLOB_INDEX"_"$C_BLOB_INDEX" \
 	--bar_plot_color darkblue \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 
 
 # Plot the frequencies of contact states: V-C -> N-C
 python3 plot_state_freq.py \
-	--association 8_16_to_2_16 \
+	--association "$VARIANT_BLOB_INDEX"_"$C_BLOB_INDEX"_to_"$N_BLOB_INDEX"_"$C_BLOB_INDEX" \
 	--bar_plot_color maroon \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 
 
 # Plot the frequencies of contact states: V-M -> M-N
 python3 plot_state_freq.py \
-	--association 8_12_to_12_2 \
+	--association "$VARIANT_BLOB_INDEX"_"$MEDIATOR_BLOB_INDEX"_to_"$MEDIATOR_BLOB_INDEX"_"$N_BLOB_INDEX" \
 	--bar_plot_color darkgreen \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 
 
 # Plot the frequencies of contact states: M-N -> N-C
 python3 plot_state_freq.py \
-	--association 12_2_to_2_16 \
+	--association "$MEDIATOR_BLOB_INDEX"_"$N_BLOB_INDEX"_to_"$N_BLOB_INDEX"_"$C_BLOB_INDEX" \
 	--bar_plot_color indigo \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 
 
 # Plot the frequencies of contact states: V-M -> M-C
 python3 plot_state_freq.py \
-	--association 8_12_to_12_16 \
+	--association "$VARIANT_BLOB_INDEX"_"$MEDIATOR_BLOB_INDEX"_to_"$MEDIATOR_BLOB_INDEX"_"$C_BLOB_INDEX" \
 	--bar_plot_color palevioletred \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 
 
 # Plot odds ratios: V-N -> N-C
 python3 plot_odds_ratios.py \
-	--association 8_2_to_2_16 \
+	--association "$VARIANT_BLOB_INDEX"_"$N_BLOB_INDEX"_to_"$N_BLOB_INDEX"_"$C_BLOB_INDEX" \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 	
 
 # Plot odds ratios: V-C -> N-C
 python3 plot_odds_ratios.py \
-	--association 8_16_to_2_16 \
+	--association "$VARIANT_BLOB_INDEX"_"$C_BLOB_INDEX"_to_"$N_BLOB_INDEX"_"$C_BLOB_INDEX" \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 	
 
 # Plot odds ratios: V-M -> M-N
 python3 plot_odds_ratios.py \
-	--association 8_12_to_12_2 \
+	--association "$VARIANT_BLOB_INDEX"_"$MEDIATOR_BLOB_INDEX"_to_"$MEDIATOR_BLOB_INDEX"_"$N_BLOB_INDEX" \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 	
 
 # Plot odds ratios: M-N -> N-C
 python3 plot_odds_ratios.py \
-	--association 12_2_to_2_16 \
+	--association "$MEDIATOR_BLOB_INDEX"_"$N_BLOB_INDEX"_to_"$N_BLOB_INDEX"_"$C_BLOB_INDEX" \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 	
 
 # Plot odds ratios: V-M -> M-C
 python3 plot_odds_ratios.py \
-	--association 8_12_to_12_16 \
+	--association "$VARIANT_BLOB_INDEX"_"$MEDIATOR_BLOB_INDEX"_to_"$MEDIATOR_BLOB_INDEX"_"$C_BLOB_INDEX" \
 	--input_path "$INPUT_DIR" \
-	--output_path "$FIGURE_DIR"
+	--output_path "$FIGURE_DIR" \
+	--variant_blob_index "$VARIANT_BLOB_INDEX" \
+	--mediator_blob_index "$MEDIATOR_BLOB_INDEX" \
+	--N_blob_index "$N_BLOB_INDEX" \
+	--C_blob_index "$C_BLOB_INDEX" 	
 
 # Plot side-chain contacts for V-M M-N contact state
 python3 plot_one_fig_range_residue_contacts.py \
@@ -135,7 +197,7 @@ python3 plot_blob_contacts_one_fig.py \
 	--input_path "$INPUT_DIR" \
 	--output_path "$FIGURE_DIR" 	
 
-# Plot secondary structure for V-M M-N contact state
+# Plot secondary structure for V-M M-N contact state, raw_traj_path is need for .tpr file
 python3 calc_secondary_structure.py \
 	--raw_traj_path "$TRAJ_DIR" \
 	--input_path "$INPUT_DIR" \
@@ -157,5 +219,23 @@ python3 plot_one_fig_range_residue_contacts.py \
 	--x-range 105 111 \
 	--y-range 31 38 \
 	--res_type "bb" \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"	
+
+python3 plot_all_residue_contacts.py \
+	--state "total_ensemble" \
+	--res_type "ca" \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"	
+
+python3 plot_all_residue_contacts.py \
+	--state "total_ensemble" \
+	--res_type "bb" \
+	--input_path "$INPUT_DIR" \
+	--output_path "$FIGURE_DIR"	
+
+python3 plot_all_residue_contacts.py \
+	--state "total_ensemble" \
+	--res_type "sc" \
 	--input_path "$INPUT_DIR" \
 	--output_path "$FIGURE_DIR"	
