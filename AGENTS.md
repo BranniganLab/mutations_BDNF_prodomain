@@ -1,2 +1,5 @@
 - When writing or editing code, update documentation if necessary.
 - When writing or updating documentation, use the same style that is used in other scripts. Be consistent.
+- Keep individual code statements on one line where practical; avoid unnecessary line wrapping.
+- Use the same variable/argument names across files when necessary (i.e. input_path and output_path)
+- Do not insert unnecessary tests for every function (raise ValueErrors). Only insert ones that are most important
