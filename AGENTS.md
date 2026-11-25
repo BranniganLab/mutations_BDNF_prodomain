@@ -2,4 +2,13 @@
 - When writing or updating documentation, use the same style that is used in other scripts. Be consistent.
 - Keep individual code statements on one line where practical; avoid unnecessary line wrapping.
 - Use the same variable/argument names across files when necessary (i.e. input_path and output_path)
-- Do not insert unnecessary tests for every function (raise ValueErrors). Only insert ones that are most important
+- Do not insert unnecessary tests for every function (raise ValueErrors). Because the scripts in this repo will be ran automatically by generate_figs.sh, variables will already be passed into functions/scripts with out the user having to.
+- Strings of output file names should never be passed into a function and instead a variable should hold the string and be passed into the function
+- All variables that hold constants should be capitalized
+- All variables that hold constants should be at the bottom of the script
+- Do not use _ or . for variable names even if they are not used
+- Variable names should be explicit and clear
+- Function names should tell the user what the function does. Typically they should have a verb in the variable name "plot" "get" "read" etc.
+- Use snake case for all variables
+- Dictionaries should use text wrapping
+- There should always be one line above the return statement that is empty
