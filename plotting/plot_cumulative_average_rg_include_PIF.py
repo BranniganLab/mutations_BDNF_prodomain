@@ -14,18 +14,6 @@ The Rg files contain only retained values.  The corresponding
 that were removed before equilibration was discarded.
 """
 
-
-SEQ_COLORS = {
-    "F66": "gray",
-    "M66": "deepskyblue",
-    "V66": "tomato",
-    "L66": "darkcyan",
-    "A66": "orchid",
-    "Y66": "limegreen",
-    "I66": "darkviolet",
-}
-
-
 def read_rg(sequence, input_path):
     """
     Reads the retained, post-equilibration Rg values.
@@ -214,6 +202,14 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # 
+    SEQ_COLORS = {
+    "F66": "gray",
+    "M66": "deepskyblue",
+    "V66": "tomato",
+    "L66": "darkcyan",
+    "A66": "orchid",
+    "Y66": "limegreen",
+    "I66": "darkviolet",
+    }
 
     make_plot(args.sequences.split(), args.input_path, args.deleted_frames_path, args.output_path, args.ps_per_frame, args.equilibration_frames)
