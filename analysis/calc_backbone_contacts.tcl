@@ -67,11 +67,4 @@ proc measureContactsBB {cutoff output_dir state} {
     }
 
     close $f
-
-    # Delete atomselections
-    foreach sel $scSelectors {
-        if {$sel ne ""} {
-            $sel delete
-        }
-    }
 }
