@@ -1,16 +1,17 @@
-proc apply_ref_seq_blob_assignments {output_dir Lmin H_star} {
+proc apply_ref_seq_blob_assignments {blobulated_ref_seq output_dir Lmin H_star} {
 
-    # Applies the reference sequence Blobulator assignments to the top VMD molecule
+    #   Applies the reference sequence Blobulator assignments to the top VMD molecule
     #       
     #   Arguments:
+    #       blobulated_ref_seq (str): The reference blobulated sequence
     #       output_dir (str): Directory for output 
-    #       L_Min (int): Minimum length of a blob (4)
-    #       H_star (float): Hydropathy threshold (0.37)
+    #       L_Min (int): Minimum length of a blob
+    #       H_star (float): Hydropathy threshold
     #
     #   Returns:
     #       None
 
-    set infile "${output_dir}/V66_blob_assignments_Lmin${Lmin}_Hstar${H_star}.txt"
+    set infile "${output_dir}/${blobulated_ref_seq}_blob_assignments_Lmin${Lmin}_Hstar${H_star}.txt"
     set in [open $infile r]
 
     # Skip header

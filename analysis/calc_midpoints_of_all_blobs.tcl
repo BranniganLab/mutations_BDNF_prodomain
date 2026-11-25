@@ -1,13 +1,16 @@
-proc calcAllBlobMidpoints {output_dir traj_without_equilibration_base} {
+proc calcAllBlobMidpoints {output_dir traj_without_equilibration_base Lmin} {
 
     #   This script outputs one file that contains xyz coordinates of the midpoint for each blob
     #   Each row corresponds to a frame. The first 3 values are xyz coordinates of the first blob 
     #   in the protein sequence (e.g. p1 of the BDNF prodomain) and so on. The values are calculated in nm.
-    #   Note: This script does not consider s-blobs!
+    #   Note: Blobs containing fewer than Lmin residues are omitted from the
+    #         output. The output coordinate order is the sequence order of
+    #         the remaining blobs.
     #       
     #   Arguments:
     #       output_dir (str): Directory for output 
     #       traj_without_equilibration_base (str): Name of the trajectory that does not contain equilibration frames
+    #       Lmin (int): Minimum length of a blob to include in the output.
     #
     #   Returns:
     #       None
@@ -48,8 +51,8 @@ proc calcAllBlobMidpoints {output_dir traj_without_equilibration_base} {
             set firstResid [lindex $blob_resid_range 0]
             set lastResid [lindex $blob_resid_range 1]
 
-            # Skip if the blob_resid_range is smaller than lMin residues (we don't want to calculate midpoint for s blobs)
-            if {[expr {$lastResid - $firstResid + 1}] < 4} {
+            # Skip blobs shorter than Lmin residues.
+            if {[expr {$lastResid - $firstResid + 1}] < $Lmin} {
                 continue
             }
 
