@@ -15,7 +15,6 @@ associations are specified by their physical meaning rather than by one fixed
 filename.
 """
 
-
 def odds_ratio_and_ci(path, n_independent_samples):
     """
     Computes the odds ratio and confidence interval from an odds-ratio file.
@@ -92,88 +91,118 @@ def main():
         None
     """
 
-    global data_root, output_directory, n_independent_samples
+    global input_path, output_path, n_independent_samples
     global SEQUENCES, DATASETS, ASSOCIATIONS, OUTPUT_FILENAME
 
-    # Accept either .../data or .../data/replica_0 as --data_root.
-    if not (data_root / DATASETS[0][1]).is_dir():
-        replica_root = data_root / "replica_0"
+    # Accept either .../data or .../data/replica_0 as --input_path.
+    if not (input_path / DATASETS[0][1]).is_dir():
+        replica_root = input_path / "replica_0"
         if (replica_root / DATASETS[0][1]).is_dir():
-            data_root = replica_root
+            input_path = replica_root
         else:
             raise FileNotFoundError(
-                f"Could not find {DATASETS[0][1]} below {data_root} "
+                f"Could not find {DATASETS[0][1]} below {input_path} "
                 "or below its replica_0 subdirectory."
             )
-    n_conditions = len(DATASETS)
     x = np.arange(len(SEQUENCES))
     width = 0.15
+    hstar_groups = [
+        (r"$\mathrm{H}^*=0.33$", [0, 4, 6]),
+        (r"$\mathrm{H}^*=0.37$", [1, 3, 7]),
+        (r"$\mathrm{H}^*=0.40$", [2, 5]),
+    ]
+    lmin_colors = {3: "#0072B2", 4: "#E98E17", 5: "#009607"}
 
-    fig, axes = plt.subplots(1, len(ASSOCIATIONS), figsize=(22, 7.2),
-                             sharey=True, gridspec_kw={"wspace": 0.06})
-    for ax, association in zip(axes, ASSOCIATIONS):
-        for condition_index, (label, directory, mapping) in enumerate(DATASETS):
-            odds, lower, upper, p_values = [], [], [], []
-            for sequence in SEQUENCES:
-                filename = (f"{sequence}_wrapped_centered_PIF_equil_del_"
-                            f"odds_ratios_{mapping[association]}.txt")
-                path = data_root / directory / filename
-                if not path.exists():
-                    raise FileNotFoundError(path)
-                value, ci_low, ci_high, p = odds_ratio_and_ci(
-                    path, n_independent_samples)
-                odds.append(value)
-                lower.append(value - ci_low)
-                upper.append(ci_high - value)
-                p_values.append(p)
+    fig, axes = plt.subplots(len(hstar_groups), len(ASSOCIATIONS), figsize=(22, 15), sharey=True, gridspec_kw={"wspace": 0.06, "hspace": 0.24})
+    
+    for row_index, (hstar_label, dataset_indices) in enumerate(hstar_groups):
+        
+        for column_index, association in enumerate(ASSOCIATIONS):
+            ax = axes[row_index, column_index]
+            n_conditions = len(dataset_indices)
+            
+            for condition_index, dataset_index in enumerate(dataset_indices):
+                label, directory, mapping = DATASETS[dataset_index]
+                odds, lower, upper, p_values = [], [], [], []
+                
+                for sequence in SEQUENCES:
+                    filename = (f"{sequence}_wrapped_centered_PIF_equil_del_"
+                                f"odds_ratios_{mapping[association]}.txt")
+                    path = input_path / directory / filename
+                    if not path.exists():
+                        raise FileNotFoundError(path)
+                    value, ci_low, ci_high, p = odds_ratio_and_ci(path, n_independent_samples)
+                    odds.append(value)
+                    lower.append(value - ci_low)
+                    upper.append(ci_high - value)
+                    p_values.append(p)
 
-            positions = x + (condition_index - (n_conditions - 1) / 2) * width
-            ax.bar(positions, odds, width=width, color=colors[condition_index],
-                   yerr=[lower, upper], capsize=2, label=label,
-                   error_kw={"elinewidth": 0.8})
+                lmin = int(directory.split("Lmin")[1].split("_")[0])
+                positions = x + (condition_index - (n_conditions - 1) / 2) * width
+                ax.bar(positions, odds, width=width, color=lmin_colors[lmin], yerr=[lower, upper], capsize=2, label=f"$L_{{min}}={lmin}$", error_kw={"elinewidth": 0.8})
 
-            for position, value, error, p_value in zip(
-                    positions, odds, upper, p_values):
-                stars = significance_stars(p_value)
-                if stars:
-                    ax.text(position, value + error + 0.12, stars,
-                            ha="center", va="bottom", fontsize=8)
+                for position, value, error, p_value in zip(positions, odds, upper, p_values):
+                    stars = significance_stars(p_value)
+                    if stars:
+                        ax.text(position, value + error + 0.12, stars, ha="center", va="bottom", fontsize=8)
 
-        ax.axhline(1, color="black", linestyle="--", linewidth=0.9)
-        ax.set_title(association, fontsize=11)
-        ax.set_xticks(x)
-        ax.set_xticklabels(SEQUENCES, fontsize=15)
-        ax.set_ylim(0, 10)
+            ax.axhline(1, color="black", linestyle="--", linewidth=0.9)
+            ax.set_title(association, fontsize=15)
+            ax.set_xticks(x)
+            ax.tick_params(axis="both", labelsize=15)
+            ax.set_xticklabels(SEQUENCES, fontsize=15)
+            ax.set_ylim(0, 10)
+            if column_index == 0:
+                ax.set_ylabel(f"OR, {hstar_label}", fontsize=18)
 
-    axes[0].set_ylabel("Odds ratio", fontsize=13)
-    axes[0].legend(loc="upper left", bbox_to_anchor=(0, -0.16), ncol=3,frameon=False, fontsize=10)
-    fig.subplots_adjust(left=0.045, right=0.995, bottom=0.15, top=0.88,
-                        wspace=0.06)
+    handles, labels = axes[0, 0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="lower left", bbox_to_anchor=(0.06, 0.05), ncol=3, frameon=False, fontsize=18)
+    fig.subplots_adjust(left=0.06, right=0.995, bottom=0.12, top=0.95, wspace=0.06, hspace=0.24)
 
-    output_path = Path(output_directory) / OUTPUT_FILENAME
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(output_path, bbox_inches="tight", format="pdf")
+    output_file_path = output_path / OUTPUT_FILENAME
+    output_file_path.parent.mkdir(parents=True, exist_ok=True)
+
+    fig.savefig(output_file_path, bbox_inches="tight")
     plt.close(fig)
 
 
 if __name__ == "__main__":
     
     parser = argparse.ArgumentParser(description="Plot odds ratios for several Lmin and Hstar parameter sets.")
-    parser.add_argument("--data_root", required=True, help="Root containing replica_0/Lmin*_Hstar* directories")
-    parser.add_argument("--output", required=True, help="Directory in which to save the output PDF.")
+    parser.add_argument("--input_path", required=True, help="Root containing replica_0/Lmin*_Hstar* directories")
+    parser.add_argument("--output_path", required=True, help="Directory in which to save the output PDF.")
     parser.add_argument("--n_independent_samples", required=False, type=int, default=1088, help="Number of independent samples.")
+    parser.add_argument("--sequences", required=False, default="F66 M66 V66 L66 A66 Y66 I66", help="Space-separated sequence names.")
 
     args = parser.parse_args()
 
-    data_root = Path(args.data_root)
-    output_directory = Path(args.output)
+    input_path = Path(args.input_path)
+    output_path = Path(args.output_path)
     n_independent_samples = args.n_independent_samples
-    sequences = ["F66", "M66", "V66", "L66", "A66", "Y66", "I66"]
+    sequences = args.sequences.split()
 
     # Each tuple is (display label, directory name, physical association ->
     # filename association). These mappings are inferred from the blob indices
     # used to generate the files in each directory.
     datasets = [
+        ("$L_{min}=3$, $H^*=0.33$", "Lmin3_Hstar0.33", {
+            "$v$-$n$ $\\rightarrow$ $n$-$c$": "10_2_to_2_20",
+            "$v$-$c$ $\\rightarrow$ $n$-$c$": "10_20_to_2_20",
+            "$v$-$m$ $\\rightarrow$ $m$-$n$": "10_16_to_16_2",
+            "$m$-$n$ $\\rightarrow$ $n$-$c$": "16_2_to_2_20",
+        }),
+        ("$L_{min}=3$, $H^*=0.37$", "Lmin3_Hstar0.37", {
+            "$v$-$n$ $\\rightarrow$ $n$-$c$": "10_2_to_2_18",
+            "$v$-$c$ $\\rightarrow$ $n$-$c$": "10_18_to_2_18",
+            "$v$-$m$ $\\rightarrow$ $m$-$n$": "10_14_to_14_2",
+            "$m$-$n$ $\\rightarrow$ $n$-$c$": "14_2_to_2_18",
+        }),
+        ("$L_{min}=3$, $H^*=0.40$", "Lmin3_Hstar0.40", {
+            "$v$-$n$ $\\rightarrow$ $n$-$c$": "10_2_to_2_18",
+            "$v$-$c$ $\\rightarrow$ $n$-$c$": "10_18_to_2_18",
+            "$v$-$m$ $\\rightarrow$ $m$-$n$": "10_14_to_14_2",
+            "$m$-$n$ $\\rightarrow$ $n$-$c$": "14_2_to_2_18",
+        }),
         ("$L_{min}=4$, $H^*=0.37$",
          "Lmin4_Hstar0.37_original_params/cutoff_5.5A_original_params", {
              "$v$-$n$ $\\rightarrow$ $n$-$c$": "8_2_to_2_16",
@@ -213,7 +242,6 @@ if __name__ == "__main__":
         "$v$-$m$ $\\rightarrow$ $m$-$n$",
         "$m$-$n$ $\\rightarrow$ $n$-$c$",
     ]
-    colors = ["#00000053", "#0072B2", "#E98E17", "#009607", "#C9468E"]
     OUTPUT_FILENAME = "odds_ratios_comparison.pdf"
     DATASETS = datasets
     ASSOCIATIONS = associations
